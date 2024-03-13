@@ -22,7 +22,8 @@ jobs:
         
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run:         
+      run: 
+        cd "App";       
         docker build . --file WebApp.Dockerfile --tag byoaiacontainer.azurecr.io/byoaia-app:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
         docker tag byoaiacontainer.azurecr.io/byoaia-app:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER byoaiacontainer.azurecr.io/byoaia-app:latest;
         docker push byoaiacontainer.azurecr.io/byoaia-app:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
