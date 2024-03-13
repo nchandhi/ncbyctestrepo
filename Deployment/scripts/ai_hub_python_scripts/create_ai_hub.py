@@ -17,7 +17,7 @@ from azure.identity import DefaultAzureCredential
 ai_client = AIClient(
     credential=DefaultAzureCredential(),
     subscription_id=subscription_id,
-    resource_group_name=resource_group_name
+    resource_group_name='nctestbiceprg1'
     #,project_name='nachandh-6763'
 )
 ai_client.resource_group_name
