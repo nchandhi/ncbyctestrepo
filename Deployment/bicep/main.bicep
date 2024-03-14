@@ -23,7 +23,6 @@ module managedIdentityModule 'deploy_managed_identity.bicep' = {
   scope: resourceGroup(resourceGroup().name)
 }
 
-
 // ========== Storage Account Module ========== //
 module storageAccountModule 'deploy_storage_account.bicep' = {
   name: 'deploy_storage_account.bicep'
@@ -104,7 +103,7 @@ module keyvaultModule 'deploy_keyvault.bicep' = {
   dependsOn:[storageAccountModule,azOpenAI,azAIMultiServiceAccount,azSearchService]
 }
 
-module createIndex 'deploy_index_python_scripts.bicep' = {
+module createIndex 'deploy_index_scripts.bicep' = {
   name : 'deploy_index_python_scripts'
   params:{
     solutionLocation: solutionLocation
@@ -115,7 +114,7 @@ module createIndex 'deploy_index_python_scripts.bicep' = {
   dependsOn:[keyvaultModule]
 }
 
-module createAIHub 'deploy_ai_hub_python_scripts.bicep' = {
+module createAIHub 'deploy_ai_hub_scripts.bicep' = {
   name : 'deploy_ai_hub_python_scripts'
   params:{
     baseUrl:baseUrl
@@ -128,3 +127,55 @@ module createAIHub 'deploy_ai_hub_python_scripts.bicep' = {
   }
   dependsOn:[keyvaultModule]
 }
+
+
+module appserviceModule 'deploy_app_service.bicep' = {
+  name: 'deploy_app_service'
+  params: {
+    identity:managedIdentityModule.outputs.managedIdentityOutput.id
+    solutionName: solutionPrefix
+    solutionLocation: solutionLocation
+    AzureSearchService:azSearchService.outputs.searchServiceOutput.searchServiceName
+    AzureSearchIndex:'articlesindex'
+    AzureSearchArticlesIndex:'articlesindex'
+    AzureSearchGrantsIndex:'grantsindex'
+    AzureSearchDraftsIndex:'articlesgrantsindex'
+    AzureSearchKey:azSearchService.outputs.searchServiceOutput.searchServiceAdminKey
+    AzureSearchUseSemanticSearch:'True'
+    AzureSearchSemanticSearchConfig:'my-semantic-config'
+    AzureSearchIndexIsPrechunked:'False'
+    AzureSearchTopK:'5'
+    AzureSearchContentColumns:'content'
+    AzureSearchFilenameColumn:'chunk_id'
+    AzureSearchTitleColumn:'title'
+    AzureSearchUrlColumn:'publicurl'
+    AzureOpenAIResource:azOpenAI.outputs.openAIOutput.openAPIEndpoint
+    AzureOpenAIModel:'gpt-35-turbo-16k'
+    AzureOpenAIKey:azOpenAI.outputs.openAIOutput.openAPIKey
+    AzureOpenAIModelName:'gpt-35-turbo-16k'
+    AzureOpenAITemperature:'0'
+    AzureOpenAITopP:'1'
+    AzureOpenAIMaxTokens:'1000'
+    AzureOpenAIStopSequence:''
+    AzureOpenAISystemMessage:'You are an AI assistant that helps people find information.'
+    AzureOpenAIApiVersion:'2023-12-01-preview'
+    AzureOpenAIStream:'True'
+    AzureSearchQueryType:'vectorSemanticHybrid'
+    AzureSearchVectorFields:'titleVector,contentVector'
+    AzureSearchPermittedGroupsField:''
+    AzureSearchStrictness:'3'
+    AzureOpenAIEmbeddingName:'text-embedding-ada-002'
+    AzureOpenAIEmbeddingkey:azOpenAI.outputs.openAIOutput.openAPIKey
+    AzureOpenAIEmbeddingEndpoint:azOpenAI.outputs.openAIOutput.openAPIEndpoint
+    AIStudioChatFlowEndpoint:'TBD'
+    AIStudioChatFlowAPIKey:'TBD'
+    AIStudioChatFlowDeploymentName:'TBD'
+    AIStudioDraftFlowEndpoint:'TBD'
+    AIStudioDraftFlowAPIKey:'TBD'
+    AIStudioDraftFlowDeploymentName:'TBD'
+  }
+  scope: resourceGroup(resourceGroup().name)
+  dependsOn:[storageAccountModule,azOpenAI,azAIMultiServiceAccount,azSearchService]
+}
+
+     

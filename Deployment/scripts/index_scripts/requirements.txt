@@ -1,0 +1,10 @@
+azure-storage-file-datalake
+langchain
+openai
+PyPDF2
+tiktoken
+azure-identity
+azure-ai-textanalytics
+azure-search-documents
+azure-keyvault-secrets
+pandas
