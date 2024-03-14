@@ -11,7 +11,7 @@ var resourceGroupName = resourceGroup().name
 var subscriptionId  = subscription().subscriptionId
 
 var solutionLocation = resourceGroupLocation
-var baseUrl = 'https://raw.githubusercontent.com/nchandhi/ncbyoatestrepo/main/'
+var baseUrl = 'https://raw.githubusercontent.com/nchandhi/ncbyctestrepo/main/'
 
 // ========== Managed Identity ========== //
 module managedIdentityModule 'deploy_managed_identity.bicep' = {
@@ -25,7 +25,7 @@ module managedIdentityModule 'deploy_managed_identity.bicep' = {
 
 // ========== Storage Account Module ========== //
 module storageAccountModule 'deploy_storage_account.bicep' = {
-  name: 'deploy_storage_account.bicep'
+  name: 'deploy_storage_account'
   params: {
     solutionName: solutionPrefix
     solutionLocation: solutionLocation
@@ -104,7 +104,7 @@ module keyvaultModule 'deploy_keyvault.bicep' = {
 }
 
 module createIndex 'deploy_index_scripts.bicep' = {
-  name : 'deploy_index_python_scripts'
+  name : 'deploy_index_scripts'
   params:{
     solutionLocation: solutionLocation
     identity:managedIdentityModule.outputs.managedIdentityOutput.id
@@ -115,7 +115,7 @@ module createIndex 'deploy_index_scripts.bicep' = {
 }
 
 module createAIHub 'deploy_ai_hub_scripts.bicep' = {
-  name : 'deploy_ai_hub_python_scripts'
+  name : 'deploy_ai_hub_scripts'
   params:{
     baseUrl:baseUrl
     solutionLocation: solutionLocation
