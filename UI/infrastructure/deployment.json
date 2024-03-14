@@ -190,7 +190,7 @@
         },
         "AzureOpenAIApiVersion": {
             "type": "string",
-            "defaultValue": "2023-06-01-preview",
+            "defaultValue": "2023-12-01-preview",
             "metadata": {
                 "description": "Azure OpenAI Api Version"
             }
@@ -362,7 +362,7 @@
         "cosmosdb_account_name": "[format('db-{0}', parameters('WebsiteName'))]",
         "cosmosdb_database_name": "db_conversation_history",
         "cosmosdb_container_name": "conversations",
-        "roleDefinitionId": "00000000-0000-0000-0000-000000000002", 
+        "roleDefinitionId": "00000000-0000-0000-0000-000000000002",
         "roleAssignmentId": "[guid(variables('roleDefinitionId'), parameters('WebsiteName'), resourceId('Microsoft.DocumentDB/databaseAccounts', variables('cosmosdb_account_name')))]"
     },
     "resources": [
@@ -578,7 +578,15 @@
                         {
                             "name": "ELASTICSEARCH_EMBEDDING_MODEL_ID",
                             "value": "[parameters('ElasticsearchEmbeddingModelId')]"
-                        }
+                        },
+                        {
+                            "name": "UWSGI_PROCESSES",
+                            "value": "2"
+                        },
+                        {
+                            "name": "UWSGI_THREADS",
+                            "value": "2"
+                        }                        
                     ],
                     "linuxFxVersion": "[variables('WebAppImageName')]"
                 }
@@ -616,8 +624,11 @@
                     }
                 ],
                 "databaseAccountOfferType": "Standard",
-                "enableAutomaticFailover": false,
-                "enableMultipleWriteLocations": false
+                "capabilities": [
+                    {
+                        "name": "EnableServerless"
+                    }
+                ]
             }
         },
         {
@@ -665,10 +676,6 @@
                             "/userId"
                         ],
                         "kind": "Hash"
-                    },
-                    "conflictResolutionPolicy": {
-                        "mode": "LastWriterWins",
-                        "conflictResolutionPath": "/_ts"
                     }
                 }
             }
