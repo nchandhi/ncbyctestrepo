@@ -6,7 +6,7 @@ COPY ./frontend/package*.json ./
 USER node
 RUN npm ci  
 COPY --chown=node:node ./frontend/ ./frontend  
-# COPY --chown=node:node ./static/ ./static  
+COPY --chown=node:node ./static/ ./static  
 WORKDIR /home/node/app/frontend
 RUN npm run build
   
