@@ -29,7 +29,7 @@ resource accounts_cdpdemoopenai1_name_gpt_35_turbo 'Microsoft.CognitiveServices/
   name: 'gpt-35-turbo-16k'
   sku: {
     name: 'Standard'
-    capacity: 1
+    capacity: 10
   }
   properties: {
     model: {
@@ -48,7 +48,7 @@ resource accounts_cdpdemoopenai1_name_text_embedding_ada_002 'Microsoft.Cognitiv
   name: 'text-embedding-ada-002'
   sku: {
     name: 'Standard'
-    capacity: 59
+    capacity: 45
   }
   properties: {
     model: {

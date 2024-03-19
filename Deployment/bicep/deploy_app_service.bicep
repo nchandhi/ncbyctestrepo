@@ -81,6 +81,9 @@ param AzureOpenAIModel string
 @description('Azure OpenAI Model Name')
 param AzureOpenAIModelName string = 'gpt-35-turbo'
 
+@description('Azure Open AI Endpoint')
+param AzureOpenAIEndpoint string = ''
+
 @description('Azure OpenAI Key')
 @secure()
 param AzureOpenAIKey string
@@ -193,6 +196,18 @@ resource Website 'Microsoft.Web/sites@2020-06-01' = {
           value: AzureSearchService
         }
         {
+          name: 'AZURE_SEARCH_INDEX_ARTICLES'
+          value: AzureSearchArticlesIndex
+        }
+        {
+          name: 'AZURE_SEARCH_INDEX_GRANTS'
+          value: AzureSearchGrantsIndex
+        }
+        {
+          name: 'AZURE_SEARCH_INDEX_DRAFTS'
+          value: AzureSearchDraftsIndex
+        }
+        {
           name: 'AZURE_SEARCH_INDEX'
           value: AzureSearchIndex
         }
@@ -243,6 +258,10 @@ resource Website 'Microsoft.Web/sites@2020-06-01' = {
         {
           name: 'AZURE_OPENAI_MODEL'
           value: AzureOpenAIModel
+        }
+        {
+          name: 'AZURE_OPENAI_ENDPOINT'
+          value: AzureOpenAIEndpoint
         }
         {
           name: 'AZURE_OPENAI_KEY'

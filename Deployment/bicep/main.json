@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "16168212904070379792"
+      "templateHash": "5737917285748730657"
     }
   },
   "parameters": {
@@ -465,7 +465,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "13351567716819067329"
+              "templateHash": "16478928586987490297"
             }
           },
           "parameters": {
@@ -511,7 +511,7 @@
               "name": "[format('{0}/{1}', parameters('accounts_byc_openai_name'), 'gpt-35-turbo-16k')]",
               "sku": {
                 "name": "Standard",
-                "capacity": 1
+                "capacity": 10
               },
               "properties": {
                 "model": {
@@ -532,7 +532,7 @@
               "name": "[format('{0}/{1}', parameters('accounts_byc_openai_name'), 'text-embedding-ada-002')]",
               "sku": {
                 "name": "Standard",
-                "capacity": 59
+                "capacity": 45
               },
               "properties": {
                 "model": {
@@ -1406,7 +1406,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "3536141827066588465"
+              "templateHash": "6555319453362837282"
             }
           },
           "parameters": {
@@ -1591,6 +1591,13 @@
               "defaultValue": "gpt-35-turbo",
               "metadata": {
                 "description": "Azure OpenAI Model Name"
+              }
+            },
+            "AzureOpenAIEndpoint": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Azure Open AI Endpoint"
               }
             },
             "AzureOpenAIKey": {
@@ -1807,6 +1814,18 @@
                       "value": "[parameters('AzureSearchService')]"
                     },
                     {
+                      "name": "AZURE_SEARCH_INDEX_ARTICLES",
+                      "value": "[parameters('AzureSearchArticlesIndex')]"
+                    },
+                    {
+                      "name": "AZURE_SEARCH_INDEX_GRANTS",
+                      "value": "[parameters('AzureSearchGrantsIndex')]"
+                    },
+                    {
+                      "name": "AZURE_SEARCH_INDEX_DRAFTS",
+                      "value": "[parameters('AzureSearchDraftsIndex')]"
+                    },
+                    {
                       "name": "AZURE_SEARCH_INDEX",
                       "value": "[parameters('AzureSearchIndex')]"
                     },
@@ -1857,6 +1876,10 @@
                     {
                       "name": "AZURE_OPENAI_MODEL",
                       "value": "[parameters('AzureOpenAIModel')]"
+                    },
+                    {
+                      "name": "AZURE_OPENAI_ENDPOINT",
+                      "value": "[parameters('AzureOpenAIEndpoint')]"
                     },
                     {
                       "name": "AZURE_OPENAI_KEY",

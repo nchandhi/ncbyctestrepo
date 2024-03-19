@@ -150,6 +150,7 @@ module appserviceModule 'deploy_app_service.bicep' = {
     AzureSearchTitleColumn:'title'
     AzureSearchUrlColumn:'publicurl'
     AzureOpenAIResource:azOpenAI.outputs.openAIOutput.openAPIEndpoint
+    AzureOpenAIEndpoint:azOpenAI.outputs.openAIOutput.openAPIEndpoint
     AzureOpenAIModel:'gpt-35-turbo-16k'
     AzureOpenAIKey:azOpenAI.outputs.openAIOutput.openAPIKey
     AzureOpenAIModelName:'gpt-35-turbo-16k'
