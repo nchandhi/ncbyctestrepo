@@ -24,7 +24,7 @@ resource accounts_byc_openai_name_resource 'Microsoft.CognitiveServices/accounts
   }
 }
 
-resource accounts_cdpdemoopenai1_name_gpt_35_turbo 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = {
+resource accounts_byc_openai_name_gpt_35_turbo 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = {
   parent: accounts_byc_openai_name_resource
   name: 'gpt-35-turbo-16k'
   sku: {
@@ -43,7 +43,7 @@ resource accounts_cdpdemoopenai1_name_gpt_35_turbo 'Microsoft.CognitiveServices/
   dependsOn:[accounts_byc_openai_name_resource]
 }
 
-resource accounts_cdpdemoopenai1_name_text_embedding_ada_002 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = {
+resource accounts_byc_openai_name_text_embedding_ada_002 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = {
   parent: accounts_byc_openai_name_resource
   name: 'text-embedding-ada-002'
   sku: {
@@ -59,7 +59,7 @@ resource accounts_cdpdemoopenai1_name_text_embedding_ada_002 'Microsoft.Cognitiv
     versionUpgradeOption: 'OnceNewDefaultVersionAvailable'
     raiPolicyName: 'Microsoft.Default'
   }
-  dependsOn:[accounts_byc_openai_name_resource,accounts_cdpdemoopenai1_name_gpt_35_turbo]
+  dependsOn:[accounts_byc_openai_name_resource,accounts_byc_openai_name_gpt_35_turbo]
 }
 
 var openaiKey = accounts_byc_openai_name_resource.listKeys().key1

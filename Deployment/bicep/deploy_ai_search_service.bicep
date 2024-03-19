@@ -6,7 +6,7 @@ param solutionLocation string
 
 param searchServices_byc_cs_name string = '${ solutionName }-cs'
 
-resource searchServices_byc_cs_name_resource 'Microsoft.Search/searchServices@2022-09-01' = {
+resource searchServices_byc_cs_name_resource 'Microsoft.Search/searchServices@2023-11-01' = {
   name: searchServices_byc_cs_name
   location: solutionLocation
   tags: {
@@ -30,6 +30,7 @@ resource searchServices_byc_cs_name_resource 'Microsoft.Search/searchServices@20
     authOptions: {
       apiKeyOnly: {}
     }
+    semanticSearch: 'free'
   }
 }
 

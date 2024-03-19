@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "5737917285748730657"
+      "templateHash": "17464844382590755306"
     }
   },
   "parameters": {
@@ -378,7 +378,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "10850109996302442353"
+              "templateHash": "14802349161723546066"
             }
           },
           "parameters": {
@@ -401,7 +401,7 @@
           "resources": [
             {
               "type": "Microsoft.Search/searchServices",
-              "apiVersion": "2022-09-01",
+              "apiVersion": "2023-11-01",
               "name": "[parameters('searchServices_byc_cs_name')]",
               "location": "[parameters('solutionLocation')]",
               "tags": {
@@ -424,7 +424,8 @@
                 "disableLocalAuth": false,
                 "authOptions": {
                   "apiKeyOnly": {}
-                }
+                },
+                "semanticSearch": "free"
               }
             }
           ],
@@ -433,7 +434,7 @@
               "type": "object",
               "value": {
                 "searchServiceName": "[parameters('searchServices_byc_cs_name')]",
-                "searchServiceAdminKey": "[listAdminKeys(resourceId('Microsoft.Search/searchServices', parameters('searchServices_byc_cs_name')), '2022-09-01').primaryKey]",
+                "searchServiceAdminKey": "[listAdminKeys(resourceId('Microsoft.Search/searchServices', parameters('searchServices_byc_cs_name')), '2023-11-01').primaryKey]",
                 "searchServiceEndpoint": "[format('https://{0}.search.windows.net', parameters('searchServices_byc_cs_name'))]"
               }
             }
@@ -465,7 +466,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "16478928586987490297"
+              "templateHash": "9426193770593484158"
             }
           },
           "parameters": {
@@ -544,8 +545,8 @@
                 "raiPolicyName": "Microsoft.Default"
               },
               "dependsOn": [
-                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_byc_openai_name'))]",
-                "[resourceId('Microsoft.CognitiveServices/accounts/deployments', parameters('accounts_byc_openai_name'), 'gpt-35-turbo-16k')]"
+                "[resourceId('Microsoft.CognitiveServices/accounts/deployments', parameters('accounts_byc_openai_name'), 'gpt-35-turbo-16k')]",
+                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_byc_openai_name'))]"
               ]
             }
           ],
@@ -1324,6 +1325,9 @@
             "value": "publicurl"
           },
           "AzureOpenAIResource": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'deploy_azure_open_ai'), '2022-09-01').outputs.openAIOutput.value.openAPIEndpoint]"
+          },
+          "AzureOpenAIEndpoint": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'deploy_azure_open_ai'), '2022-09-01').outputs.openAIOutput.value.openAPIEndpoint]"
           },
           "AzureOpenAIModel": {
