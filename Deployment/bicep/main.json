@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "17464844382590755306"
+      "templateHash": "11746933143364563863"
     }
   },
   "parameters": {
@@ -1295,7 +1295,7 @@
             "value": "grantsindex"
           },
           "AzureSearchDraftsIndex": {
-            "value": "articlesgrantsindex"
+            "value": "draftsindex"
           },
           "AzureSearchKey": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'deploy_ai_search_service'), '2022-09-01').outputs.searchServiceOutput.value.searchServiceAdminKey]"
