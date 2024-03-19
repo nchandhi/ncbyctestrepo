@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "5377295719409872571"
+      "templateHash": "357949308971350354"
     }
   },
   "parameters": {
@@ -1410,7 +1410,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "6555319453362837282"
+              "templateHash": "17308665284743061834"
             }
           },
           "parameters": {
@@ -1952,18 +1952,6 @@
                     {
                       "name": "WEB_APP_ENABLE_CHAT_HISTORY",
                       "value": "[parameters('WebAppEnableChatHistory')]"
-                    },
-                    {
-                      "name": "AI_STUDIO_CHAT_FLOW_ENDPOINT",
-                      "value": "[parameters('AIStudioChatFlowEndpoint')]"
-                    },
-                    {
-                      "name": "AI_STUDIO_CHAT_FLOW_API_KEY",
-                      "value": "[parameters('AIStudioChatFlowAPIKey')]"
-                    },
-                    {
-                      "name": "AI_STUDIO_CHAT_FLOW_DEPLOYMENT_NAME",
-                      "value": "[parameters('AIStudioChatFlowDeploymentName')]"
                     },
                     {
                       "name": "AI_STUDIO_DRAFT_FLOW_ENDPOINT",

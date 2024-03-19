@@ -335,20 +335,20 @@ resource Website 'Microsoft.Web/sites@2020-06-01' = {
           value: WebAppEnableChatHistory
         }
 
-        {
-          name: 'AI_STUDIO_CHAT_FLOW_ENDPOINT'
-          value: AIStudioChatFlowEndpoint
-        }
+        // {
+        //   name: 'AI_STUDIO_CHAT_FLOW_ENDPOINT'
+        //   value: AIStudioChatFlowEndpoint
+        // }
 
-        {
-          name: 'AI_STUDIO_CHAT_FLOW_API_KEY'
-          value: AIStudioChatFlowAPIKey
-        }
+        // {
+        //   name: 'AI_STUDIO_CHAT_FLOW_API_KEY'
+        //   value: AIStudioChatFlowAPIKey
+        // }
 
-        {
-          name: 'AI_STUDIO_CHAT_FLOW_DEPLOYMENT_NAME'
-          value: AIStudioChatFlowDeploymentName
-        }
+        // {
+        //   name: 'AI_STUDIO_CHAT_FLOW_DEPLOYMENT_NAME'
+        //   value: AIStudioChatFlowDeploymentName
+        // }
 
         {
           name: 'AI_STUDIO_DRAFT_FLOW_ENDPOINT'
@@ -364,8 +364,7 @@ resource Website 'Microsoft.Web/sites@2020-06-01' = {
           name: 'AI_STUDIO_DRAFT_FLOW_DEPLOYMENT_NAME'
           value: AIStudioDraftFlowDeploymentName
         }
-
-        
+ 
         {
           name: 'USE_AZURE_AI_STUDIO'
           value: AIStudioUse
