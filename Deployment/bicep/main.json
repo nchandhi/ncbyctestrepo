@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "2746735980374959656"
+      "templateHash": "16168212904070379792"
     }
   },
   "parameters": {
@@ -1264,104 +1264,6 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "deploy_ai_hub_scripts",
-      "properties": {
-        "expressionEvaluationOptions": {
-          "scope": "inner"
-        },
-        "mode": "Incremental",
-        "parameters": {
-          "baseUrl": {
-            "value": "[variables('baseUrl')]"
-          },
-          "solutionLocation": {
-            "value": "[variables('solutionLocation')]"
-          },
-          "subscriptionId": {
-            "value": "[variables('subscriptionId')]"
-          },
-          "solutionName": {
-            "value": "[parameters('solutionPrefix')]"
-          },
-          "identity": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_managed_identity'), '2022-09-01').outputs.managedIdentityOutput.value.id]"
-          },
-          "keyVaultName": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_keyvault'), '2022-09-01').outputs.keyvaultOutput.value.name]"
-          },
-          "resourceGroupName": {
-            "value": "[variables('resourceGroupName')]"
-          }
-        },
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "metadata": {
-            "_generator": {
-              "name": "bicep",
-              "version": "0.25.53.49325",
-              "templateHash": "15925994476515280073"
-            }
-          },
-          "parameters": {
-            "baseUrl": {
-              "type": "string",
-              "metadata": {
-                "description": "Specifies the location for resources."
-              }
-            },
-            "solutionLocation": {
-              "type": "string"
-            },
-            "subscriptionId": {
-              "type": "string"
-            },
-            "solutionName": {
-              "type": "string"
-            },
-            "keyVaultName": {
-              "type": "string"
-            },
-            "identity": {
-              "type": "string"
-            },
-            "resourceGroupName": {
-              "type": "string"
-            }
-          },
-          "resources": [
-            {
-              "type": "Microsoft.Resources/deploymentScripts",
-              "apiVersion": "2020-10-01",
-              "name": "create_ai_hub",
-              "kind": "AzureCLI",
-              "location": "[parameters('solutionLocation')]",
-              "identity": {
-                "type": "UserAssigned",
-                "userAssignedIdentities": {
-                  "[format('{0}', parameters('identity'))]": {}
-                }
-              },
-              "properties": {
-                "azCliVersion": "2.52.0",
-                "primaryScriptUri": "[format('{0}Deployment/scripts/run_ai_hub_scripts.sh', parameters('baseUrl'))]",
-                "arguments": "[format('{0} {1} {2} {3} {4} {5}', parameters('baseUrl'), parameters('solutionLocation'), parameters('subscriptionId'), parameters('solutionName'), parameters('keyVaultName'), parameters('resourceGroupName'))]",
-                "timeout": "PT1H",
-                "retentionInterval": "PT1H",
-                "cleanupPreference": "OnSuccess"
-              }
-            }
-          ]
-        }
-      },
-      "dependsOn": [
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_keyvault')]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_managed_identity')]"
-      ]
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2022-09-01",
       "name": "deploy_app_service",
       "resourceGroup": "[resourceGroup().name]",
       "properties": {
@@ -1492,6 +1394,9 @@
           },
           "AIStudioDraftFlowDeploymentName": {
             "value": "TBD"
+          },
+          "AIStudioUse": {
+            "value": "False"
           }
         },
         "template": {
@@ -1501,7 +1406,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "9543481523834750885"
+              "templateHash": "3536141827066588465"
             }
           },
           "parameters": {
@@ -1854,6 +1759,13 @@
               "metadata": {
                 "description": "Azure AI Studio Draft Flow Deployment Name"
               }
+            },
+            "AIStudioUse": {
+              "type": "string",
+              "defaultValue": "False",
+              "metadata": {
+                "description": "Use Azure AI Studio"
+              }
             }
           },
           "variables": {
@@ -2037,6 +1949,10 @@
                     {
                       "name": "AI_STUDIO_DRAFT_FLOW_DEPLOYMENT_NAME",
                       "value": "[parameters('AIStudioDraftFlowDeploymentName')]"
+                    },
+                    {
+                      "name": "USE_AZURE_AI_STUDIO",
+                      "value": "[parameters('AIStudioUse')]"
                     },
                     {
                       "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",

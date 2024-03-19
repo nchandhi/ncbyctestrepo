@@ -1,1 +1,2 @@
+azure-mgmt-resource==23.1.0b2
 azure-ai-resources

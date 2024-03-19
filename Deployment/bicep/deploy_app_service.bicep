@@ -155,6 +155,10 @@ param AIStudioDraftFlowAPIKey string = ''
 @description('Azure AI Studio Draft Flow Deployment Name')
 param AIStudioDraftFlowDeploymentName string = ''
 
+@description('Use Azure AI Studio')
+param AIStudioUse string = 'False'
+
+
 var WebAppImageName = 'DOCKER|byoaiacontainer.azurecr.io/byoaia-app:latest'
 
 resource HostingPlan 'Microsoft.Web/serverfarms@2020-06-01' = {
@@ -340,6 +344,12 @@ resource Website 'Microsoft.Web/sites@2020-06-01' = {
         {
           name: 'AI_STUDIO_DRAFT_FLOW_DEPLOYMENT_NAME'
           value: AIStudioDraftFlowDeploymentName
+        }
+
+        
+        {
+          name: 'USE_AZURE_AI_STUDIO'
+          value: AIStudioUse
         }
 
         {
