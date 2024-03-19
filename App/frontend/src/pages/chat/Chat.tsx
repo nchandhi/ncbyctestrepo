@@ -1,8 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useRef, useState, useEffect, useContext, useLayoutEffect } from 'react'
-import { CommandBarButton, IconButton, Dialog, DialogType, Stack } from '@fluentui/react'
+import { Text, CommandBarButton, IconButton, Dialog, DialogType, Stack } from '@fluentui/react'
 import { DefaultButton as FluentButton } from '@fluentui/react/lib/Button'
-import { Text } from '@fluentui/react'
 import { SquareRegular, ErrorCircleRegular } from '@fluentui/react-icons'
 
 import ReactMarkdown from 'react-markdown'
@@ -22,8 +21,6 @@ import {
   type ChatResponse,
   getUserInfo,
   type Conversation,
-  ChatHistoryLoadingState,
-  CosmosDBStatus,
   type ErrorMessage
 } from '../../api'
 import { Answer } from '../../components/Answer'
@@ -80,10 +77,6 @@ const Chat = ({ chatType }: Props) => {
       setErrorMsg(null)
     }, 500)
   }
-
-  useEffect(() => {
-    setIsLoading(appStateContext?.state.chatHistoryLoadingState === ChatHistoryLoadingState.Loading)
-  }, [appStateContext?.state.chatHistoryLoadingState])
 
   const getUserInfoList = async () => {
     if (!AUTH_ENABLED) {
@@ -266,7 +259,6 @@ const Chat = ({ chatType }: Props) => {
 
   useLayoutEffect(() => {
     if (appStateContext && appStateContext.state.currentChat && processMessages === messageStatus.Done) {
-      appStateContext?.dispatch({ type: 'UPDATE_CHAT_HISTORY', payload: appStateContext.state.currentChat })
       setMessages(appStateContext.state.currentChat.messages)
       setProcessMessages(messageStatus.NotRunning)
     }
@@ -305,7 +297,7 @@ const Chat = ({ chatType }: Props) => {
   }
 
   const disabledButton = () => {
-    return isLoading || (messages && messages.length === 0) || clearingChat || appStateContext?.state.chatHistoryLoadingState === ChatHistoryLoadingState.Loading
+    return isLoading || (messages && messages.length === 0) || clearingChat
   }
 
   const context = useContext(AppStateContext)
@@ -408,11 +400,11 @@ const Chat = ({ chatType }: Props) => {
                                 </Stack>
                             )}
                             <Stack>
-                                {appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured && <CommandBarButton
+                                <CommandBarButton
                                     role="button"
-                                    styles={{ 
-                                      icon: { 
-                                        color: '#FFFFFF',
+                                    styles={{
+                                      icon: {
+                                        color: '#FFFFFF'
                                       },
                                       iconDisabled: {
                                         color: '#BDBDBD !important'
@@ -420,30 +412,7 @@ const Chat = ({ chatType }: Props) => {
                                       root: {
                                         color: '#FFFFFF',
                                         background: '#0F6CBD',
-                                      },
-                                      rootDisabled: {
-                                        background: '#F0F0F0'
-                                      }
-                                    }}
-                                    className={styles.newChatIcon}
-                                    iconProps={{ iconName: 'Add' }}
-                                    onClick={newChat}
-                                    disabled={disabledButton()}
-                                    aria-label="start a new chat button"
-                                />}
-                                <CommandBarButton
-                                    role="button"
-                                    styles={{ 
-                                      icon: { 
-                                        color: '#FFFFFF',
-                                      },
-                                      iconDisabled: {
-                                        color: '#BDBDBD !important' ,
-                                      },
-                                      root: {
-                                        color: '#FFFFFF',
-                                        background: '#0F6CBD',
-                                        borderRadius: '100px',
+                                        borderRadius: '100px'
                                       },
                                       rootDisabled: {
                                         background: '#F0F0F0'
@@ -452,13 +421,12 @@ const Chat = ({ chatType }: Props) => {
                                       // disable hover effect
                                       rootHovered: {
                                         background: '#0F6CBD',
-                                        color: '#FFFFFF',
+                                        color: '#FFFFFF'
                                       },
 
                                       iconHovered: {
-                                        color: '#FFFFFF',
-                                      },
-                                        
+                                        color: '#FFFFFF'
+                                      }
                                     }}
                                     className={styles.clearChatBroomNoCosmos}
                                     iconProps={{ iconName: 'Broom' }}
@@ -491,7 +459,7 @@ const Chat = ({ chatType }: Props) => {
                     <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Citations Panel">
                         <Stack aria-label="Citations Panel Header Container" horizontal className={styles.citationPanelHeaderContainer} horizontalAlign="space-between" verticalAlign="center">
                             <Stack horizontal verticalAlign="center">
-                                <span aria-label="Citations" className={styles.citationPanelHeader}>Citations</span>
+                                <span aria-label="Citations" className={styles.citationPanelHeader}>References</span>
                             </Stack>
                             <IconButton iconProps={{ iconName: 'Cancel' }} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)} />
                         </Stack>

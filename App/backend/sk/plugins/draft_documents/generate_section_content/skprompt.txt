@@ -1,6 +1,0 @@
-Generate the section for the grant proposal based on the grant topic and the context detailing what should be contained in the given section.
-
-Grant Topic:{{$grant_topic}}
-Section Title:{{$section_title}}
-Section Context:{{$section_context}}
-Content: 

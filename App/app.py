@@ -76,6 +76,7 @@ AZURE_OPENAI_EMBEDDING_KEY = os.environ.get("AZURE_OPENAI_EMBEDDING_KEY")
 AZURE_OPENAI_EMBEDDING_NAME = os.environ.get("AZURE_OPENAI_EMBEDDING_NAME", "")
 AZURE_OPENAI_API_TYPE = os.environ.get("AZURE_OPENAI_API_TYPE")
 AISTUDIO_API_KEY = os.environ.get("AISTUDIO_API_KEY")
+USE_AZURE_AI_STUDIO = os.environ.get("USE_AZURE_AI_STUDIO", "False")
 
 SHOULD_STREAM = True if AZURE_OPENAI_STREAM.lower() == "true" else False
 
@@ -179,7 +180,6 @@ def prepare_body_headers_with_data(request):
             if DEBUG_LOGGING:
                 logging.debug(f"FILTER: {filter}")
 
-
         body["dataSources"].append(
             {
                 "type": "AzureCognitiveSearch",
@@ -232,8 +232,8 @@ def prepare_body_headers_with_data(request):
 
     return body, headers
 
-def stream_with_data(body, headers, endpoint, history_metadata={}, use_ai_studio=True):
-    if use_ai_studio:
+def stream_with_data(body, headers, endpoint, history_metadata={}):
+    if USE_AZURE_AI_STUDIO.lower() == "true":
         endpoint = os.environ.get("AI_STUDIO_CHAT_FLOW_ENDPOINT")
         api_key = os.environ.get("AI_STUDIO_CHAT_FLOW_API_KEY")
         headers = {
@@ -288,6 +288,7 @@ def stream_with_data(body, headers, endpoint, history_metadata={}, use_ai_studio
 
                         if 'error' in lineJson:
                             yield format_as_ndjson(lineJson)
+                        
                         response["id"] = lineJson["id"]
                         response["model"] = lineJson["model"]
                         response["created"] = lineJson["created"]
@@ -390,13 +391,13 @@ def formatApiResponseStreaming(rawResponse):
 
     return response
 
-def conversation_with_data(request_body, use_ai_studio=True):
+def conversation_with_data(request_body):
     body, headers = prepare_body_headers_with_data(request)
     base_url = AZURE_OPENAI_ENDPOINT if AZURE_OPENAI_ENDPOINT else f"https://{AZURE_OPENAI_RESOURCE}.openai.azure.com/"
     endpoint = f"{base_url}openai/deployments/{AZURE_OPENAI_MODEL}/extensions/chat/completions?api-version={AZURE_OPENAI_PREVIEW_API_VERSION}"
     history_metadata = request_body.get("history_metadata", {})
 
-    if use_ai_studio:
+    if USE_AZURE_AI_STUDIO.lower() == "true":
         body = request_body
 
     if not SHOULD_STREAM:
@@ -410,10 +411,9 @@ def conversation_with_data(request_body, use_ai_studio=True):
             result = formatApiResponseNoStreaming(r)
             result['history_metadata'] = history_metadata
             return Response(format_as_ndjson(result), status=status_code)
-
     else:
 
-        return Response(stream_with_data(body, headers, endpoint, history_metadata, use_ai_studio=use_ai_studio), mimetype='text/event-stream')
+        return Response(stream_with_data(body, headers, endpoint, history_metadata), mimetype='text/event-stream')
 
 @app.route("/conversation", methods=["GET", "POST"])
 def conversation():
@@ -447,7 +447,7 @@ async def draft_document_generate():
     if(section_context != ""):
         query = f'{section_context} ' 
     else:
-        query = f'Create {section} of research grant application for - {topic}. Structure the content into logical paragraphs.' 
+        query = f'Create {section} section of research grant application for - {topic}.' 
 
     data = {
         "chat_history": [],

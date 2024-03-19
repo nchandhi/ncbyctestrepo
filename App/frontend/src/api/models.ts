@@ -84,13 +84,6 @@ export type CosmosDBHealth = {
   status: string
 }
 
-export enum ChatHistoryLoadingState {
-  Loading = "loading",
-  Success = "success",
-  Fail = "fail",
-  NotStarted = "notStarted"
-}
-
 export type ErrorMessage = {
   title: string
   subtitle: string
