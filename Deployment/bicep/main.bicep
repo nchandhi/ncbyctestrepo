@@ -139,7 +139,7 @@ module appserviceModule 'deploy_app_service.bicep' = {
     AzureSearchIndex:'articlesindex'
     AzureSearchArticlesIndex:'articlesindex'
     AzureSearchGrantsIndex:'grantsindex'
-    AzureSearchDraftsIndex:'articlesgrantsindex'
+    AzureSearchDraftsIndex:'draftsindex'
     AzureSearchKey:azSearchService.outputs.searchServiceOutput.searchServiceAdminKey
     AzureSearchUseSemanticSearch:'True'
     AzureSearchSemanticSearchConfig:'my-semantic-config'

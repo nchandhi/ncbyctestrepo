@@ -2,6 +2,7 @@
 
 key_vault_name = 'kv_to-be-replaced'
 
+
 #hardcoded values
 index_name = "grantsindex"
 file_system_client_name = "data"
@@ -106,8 +107,7 @@ openai.api_key  = get_secrets_from_kv(key_vault_name,"AZURE-OPENAI-KEY")
 openai.api_base = get_secrets_from_kv(key_vault_name,"AZURE-OPENAI-ENDPOINT")
 openai.api_version = get_secrets_from_kv(key_vault_name,"AZURE-OPENAI-PREVIEW-API-VERSION")
 
-openai_api_type = get_secrets_from_kv(key_vault_name,"OPENAI-API-TYPE")
-openai_api_key  = get_secrets_from_kv(key_vault_name,"AZURE-OPENAI-API-KEY")
+openai_api_key  = get_secrets_from_kv(key_vault_name,"AZURE-OPENAI-KEY")
 openai_api_base = get_secrets_from_kv(key_vault_name,"AZURE-OPENAI-ENDPOINT")
 openai_api_version = get_secrets_from_kv(key_vault_name,"AZURE-OPENAI-PREVIEW-API-VERSION")
 

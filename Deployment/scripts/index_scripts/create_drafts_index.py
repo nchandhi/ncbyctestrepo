@@ -3,7 +3,7 @@
 key_vault_name = 'kv_to-be-replaced'
 
 #hardcoded values
-index_name = "articlesgrantsindex"
+index_name = "draftsindex"
 file_system_client_name = "data"
 directory = 'demodata/completed_grants' 
 csv_file_name = '/metadata/completed_grants.csv'
