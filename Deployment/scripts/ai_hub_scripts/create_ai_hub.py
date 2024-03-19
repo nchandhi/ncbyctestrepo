@@ -17,11 +17,9 @@ from azure.identity import DefaultAzureCredential
 ai_client = AIClient(
     credential=DefaultAzureCredential(),
     subscription_id=subscription_id,
-    resource_group_name='nctestbiceprg1'
+    resource_group_name='nctestbiceprg2'
     #,project_name='nachandh-6763'
 )
-ai_client.resource_group_name
-
 
 created_resource = ai_client.ai_resources.begin_create(ai_resource=AIResource(name=aihub_name)).result()
 
