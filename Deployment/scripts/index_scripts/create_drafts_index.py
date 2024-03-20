@@ -14,7 +14,7 @@ articles_csv_file_name = '/metadata/pubmed_articles.csv'
 grants_directory = 'demodata/nih_grants' 
 grants_csv_file_name = '/metadata/nih_grants.csv'
 
-num_pages = 2
+num_pages = 10
 
 from azure.keyvault.secrets import SecretClient  
 from azure.identity import DefaultAzureCredential  
