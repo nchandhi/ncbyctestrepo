@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "18080924537061692304"
+      "templateHash": "17070515084866120672"
     }
   },
   "parameters": {
@@ -20,7 +20,7 @@
     "fabricWorkspaceId": {
       "type": "string",
       "metadata": {
-        "description": "Fabric Workspace Id if you have one, else leave it empty."
+        "description": "Fabric Workspace Id if you have one, else leave it empty. "
       }
     }
   },
@@ -57,7 +57,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "13191820650863304584"
+              "templateHash": "9709088936627504990"
             }
           },
           "parameters": {
@@ -81,41 +81,7 @@
               "metadata": {
                 "description": "Name"
               }
-            },
-            "actions": {
-              "type": "array",
-              "defaultValue": [
-                "Microsoft.Synapse/workspaces/write",
-                "Microsoft.Synapse/workspaces/read"
-              ],
-              "metadata": {
-                "description": "Array of actions for the roleDefinition"
-              }
-            },
-            "notActions": {
-              "type": "array",
-              "defaultValue": [],
-              "metadata": {
-                "description": "Array of notActions for the roleDefinition"
-              }
-            },
-            "roleName": {
-              "type": "string",
-              "defaultValue": "[format('Synapse Administrator-{0}', parameters('solutionName'))]",
-              "metadata": {
-                "description": "Friendly name of the role definition"
-              }
-            },
-            "roleDescription": {
-              "type": "string",
-              "defaultValue": "[format('Synapse Administrator-{0}', parameters('solutionName'))]",
-              "metadata": {
-                "description": "Detailed description of the role definition"
-              }
             }
-          },
-          "variables": {
-            "roleDefName": "[guid(resourceGroup().id, string(parameters('actions')), string(parameters('notActions')))]"
           },
           "resources": [
             {
@@ -139,39 +105,6 @@
               },
               "dependsOn": [
                 "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName'))]"
-              ]
-            },
-            {
-              "type": "Microsoft.Authorization/roleDefinitions",
-              "apiVersion": "2018-07-01",
-              "name": "[variables('roleDefName')]",
-              "properties": {
-                "roleName": "[parameters('roleName')]",
-                "description": "[parameters('roleDescription')]",
-                "type": "customRole",
-                "permissions": [
-                  {
-                    "actions": "[parameters('actions')]",
-                    "notActions": "[parameters('notActions')]"
-                  }
-                ],
-                "assignableScopes": [
-                  "[resourceGroup().id]"
-                ]
-              }
-            },
-            {
-              "type": "Microsoft.Authorization/roleAssignments",
-              "apiVersion": "2022-04-01",
-              "name": "[guid(resourceGroup().id, resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName')), resourceId('Microsoft.Authorization/roleDefinitions', variables('roleDefName')))]",
-              "properties": {
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName')), '2023-01-31').principalId]",
-                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('roleDefName'))]",
-                "principalType": "ServicePrincipal"
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName'))]",
-                "[resourceId('Microsoft.Authorization/roleDefinitions', variables('roleDefName'))]"
               ]
             }
           ],

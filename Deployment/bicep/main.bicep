@@ -6,7 +6,7 @@ targetScope = 'resourceGroup'
 @description('Prefix Name')
 param solutionPrefix string
 
-@description('Fabric Workspace Id if you have one, else leave it empty.')
+@description('Fabric Workspace Id if you have one, else leave it empty. ')
 param fabricWorkspaceId string
 
 var resourceGroupLocation = resourceGroup().location
