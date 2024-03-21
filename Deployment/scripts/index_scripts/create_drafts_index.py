@@ -8,12 +8,6 @@ file_system_client_name = "data"
 directory = 'demodata/completed_grants' 
 csv_file_name = '/metadata/completed_grants.csv'
 
-articles_directory = 'demodata/pubmed_articles' 
-articles_csv_file_name = '/metadata/pubmed_articles.csv'
-
-grants_directory = 'demodata/nih_grants' 
-grants_csv_file_name = '/metadata/nih_grants.csv'
-
 num_pages = 10
 
 from azure.keyvault.secrets import SecretClient  
@@ -346,9 +340,9 @@ for path in paths:
     pdf_file.readinto(stream)
     pdf_reader = PyPDF2.PdfReader(stream)
     filename = path.name.split('/')[-1]
-    grant_id = filename.replace('.pdf','')
+    document_id = filename.replace('.pdf','')
 
-    df_file_metadata = df_metadata[df_metadata['grant_id']==grant_id].iloc[0]
+    df_file_metadata = df_metadata[df_metadata['grant_id']==document_id].iloc[0]
    
     text = "" 
 
@@ -367,7 +361,7 @@ for path in paths:
             chunk_num += 1
             d = {
                 "chunk_id" : path.name.split('/')[-1] + '_' + str(page_num).zfill(2) +  '_' + str(chunk_num).zfill(2),
-                "grant_id": str(df_file_metadata['grant_id']),
+                "document_id": str(df_file_metadata['grant_id']),
                 "content": chunk,       
                 "title": df_file_metadata['title'] } 
 
@@ -392,217 +386,7 @@ for path in paths:
             {
                     "id": base64.urlsafe_b64encode(bytes(d["chunk_id"], encoding='utf-8')).decode('utf-8'),
                     "chunk_id": d["chunk_id"],
-                    "document_id": d["grant_id"],
-                    "title": d["title"],
-                    "content": d["content"],
-                    "sourceurl": path.name.split('/')[-1],
-                    "publicurl": public_url,
-                    "dateTime": d["dateTime"],
-                    "Person": d["Person"],
-                    "Location": d["Location"],
-                    "Organization": d["Organization"],
-                    "URL": d["URL"],
-                    "Email": d["Email"],
-                    "PersonType": d["PersonType"],
-                    "Event": d["Event"],
-                    "Quantity": d["Quantity"],
-                    "titleVector": v_titleVector,
-                    "contentVector": v_contentVector
-            }
-            )
-               
-            if counter % 10 == 0:
-                result = client.upload_documents(documents=docs)
-                docs = []
-                print(f' {str(counter)} uploaded')
-#upload the last batch
-if docs != []:
-    client.upload_documents(documents=docs)
-
-
-#upload articles
-    
-file_system_client = service_client.get_file_system_client(file_system_client_name)  
-directory_name = articles_directory + '/pdfs'
-paths = file_system_client.get_paths(path=directory_name)
-
-# Azure Cognitive Search Vector Index
-search_credential = AzureKeyCredential(search_key)
-# Get Search Client
-client = SearchClient(search_endpoint, index_name, search_credential)
-# get index client
-index_client = SearchIndexClient(endpoint=search_endpoint, credential=search_credential)
-
-# Read the CSV file into a Pandas DataFrame
-file_path = articles_directory + articles_csv_file_name
-print(file_path)
-file_client = file_system_client.get_file_client(file_path)
-csv_file = file_client.download_file()
-df_metadata = pd.read_csv(csv_file, encoding='utf-8')
-
-docs = []
-num_pdfs = 0
-counter = 0
-for path in paths:
-    num_pdfs += 1
-    file_client = file_system_client.get_file_client(path.name)
-    pdf_file = file_client.download_file()
-    stream = BytesIO()
-    pdf_file.readinto(stream)
-    pdf_reader = PyPDF2.PdfReader(stream)
-    filename = path.name.split('/')[-1]
-    pubmed_id = filename.replace('.pdf','')
-
-    df_file_metadata = df_metadata[df_metadata['pubmed_id']==int(pubmed_id)].iloc[0]
-   
-    text = "" 
-
-    n = num_pages #len(pdf_reader.pages)
-    if len(pdf_reader.pages) < n:
-        n = len(pdf_reader.pages)
-    for page_num in range(n): #range(len(pdf_reader.pages)):
-        public_url = df_file_metadata['publicurl'] + '#page=' + str(page_num) 
-
-        page = pdf_reader.pages[page_num]
-        text = page.extract_text()         
-        
-        chunks = chunk_data(text)
-        chunk_num = 0
-        for chunk in chunks:
-            chunk_num += 1
-            d = {
-                "chunk_id" : path.name.split('/')[-1] + '_' + str(page_num).zfill(2) +  '_' + str(chunk_num).zfill(2),
-                "pubmed_id": str(df_file_metadata['pubmed_id']),
-                "content": chunk,       
-                "title": df_file_metadata['title'] } 
-
-            d["dateTime"],d["Person"],d["Location"],d["Organization"],d["URL"],d["Email"],d["PersonType"],d["Event"],d["Quantity"] = get_named_entities(cog_services_client,d["content"])
-
-            counter += 1
-
-            try:
-                v_titleVector = get_embeddings(d["title"],openai_api_base,openai_api_version,openai_api_key)
-            except:
-                time.sleep(30)
-                v_titleVector = get_embeddings(d["title"],openai_api_base,openai_api_version,openai_api_key)
-            
-            try:
-                v_contentVector = get_embeddings(d["content"],openai_api_base,openai_api_version,openai_api_key)
-            except:
-                time.sleep(30)
-                v_contentVector = get_embeddings(d["content"],openai_api_base,openai_api_version,openai_api_key)
-
-
-            docs.append(
-            {
-                    "id": base64.urlsafe_b64encode(bytes(d["chunk_id"], encoding='utf-8')).decode('utf-8'),
-                    "chunk_id": d["chunk_id"],
-                    "document_id": d["pubmed_id"],
-                    "title": d["title"],
-                    "content": d["content"],
-                    "sourceurl": path.name.split('/')[-1],
-                    "publicurl": public_url,
-                    "dateTime": d["dateTime"],
-                    "Person": d["Person"],
-                    "Location": d["Location"],
-                    "Organization": d["Organization"],
-                    "URL": d["URL"],
-                    "Email": d["Email"],
-                    "PersonType": d["PersonType"],
-                    "Event": d["Event"],
-                    "Quantity": d["Quantity"],
-                    "titleVector": v_titleVector,
-                    "contentVector": v_contentVector
-            }
-            )
-               
-            if counter % 10 == 0:
-                result = client.upload_documents(documents=docs)
-                docs = []
-                print(f' {str(counter)} uploaded')
-#upload the last batch
-if docs != []:
-    client.upload_documents(documents=docs)    
-
-
-#upload grants
-    
-file_system_client = service_client.get_file_system_client(file_system_client_name)  
-directory_name = grants_directory + '/pdfs'
-paths = file_system_client.get_paths(path=directory_name)
-
-# Azure Cognitive Search Vector Index
-search_credential = AzureKeyCredential(search_key)
-# Get Search Client
-client = SearchClient(search_endpoint, index_name, search_credential)
-# get index client
-index_client = SearchIndexClient(endpoint=search_endpoint, credential=search_credential)
-
-# Read the CSV file into a Pandas DataFrame
-file_path = grants_directory + grants_csv_file_name
-print(file_path)
-file_client = file_system_client.get_file_client(file_path)
-csv_file = file_client.download_file()
-df_metadata = pd.read_csv(csv_file, encoding='utf-8')
-
-docs = []
-num_pdfs = 0
-counter = 0
-for path in paths:
-    num_pdfs += 1
-    file_client = file_system_client.get_file_client(path.name)
-    pdf_file = file_client.download_file()
-    stream = BytesIO()
-    pdf_file.readinto(stream)
-    pdf_reader = PyPDF2.PdfReader(stream)
-    filename = path.name.split('/')[-1]
-    grant_id = filename.replace('.pdf','')
-
-    df_file_metadata = df_metadata[df_metadata['grant_id']==grant_id].iloc[0]
-   
-    text = "" 
-
-    n = num_pages #len(pdf_reader.pages)
-    if len(pdf_reader.pages) < n:
-        n = len(pdf_reader.pages)
-    for page_num in range(n): #range(len(pdf_reader.pages)):
-        public_url = df_file_metadata['publicurl'] + '#page=' + str(page_num) 
-
-        page = pdf_reader.pages[page_num]
-        text = page.extract_text()         
-        
-        chunks = chunk_data(text)
-        chunk_num = 0
-        for chunk in chunks:
-            chunk_num += 1
-            d = {
-                "chunk_id" : path.name.split('/')[-1] + '_' + str(page_num).zfill(2) +  '_' + str(chunk_num).zfill(2),
-                "grant_id": str(df_file_metadata['grant_id']),
-                "content": chunk,       
-                "title": df_file_metadata['title'] } 
-
-            d["dateTime"],d["Person"],d["Location"],d["Organization"],d["URL"],d["Email"],d["PersonType"],d["Event"],d["Quantity"] = get_named_entities(cog_services_client,d["content"])
-
-            counter += 1
-
-            try:
-                v_titleVector = get_embeddings(d["title"],openai_api_base,openai_api_version,openai_api_key)
-            except:
-                time.sleep(30)
-                v_titleVector = get_embeddings(d["title"],openai_api_base,openai_api_version,openai_api_key)
-            
-            try:
-                v_contentVector = get_embeddings(d["content"],openai_api_base,openai_api_version,openai_api_key)
-            except:
-                time.sleep(30)
-                v_contentVector = get_embeddings(d["content"],openai_api_base,openai_api_version,openai_api_key)
-
-
-            docs.append(
-            {
-                    "id": base64.urlsafe_b64encode(bytes(d["chunk_id"], encoding='utf-8')).decode('utf-8'),
-                    "chunk_id": d["chunk_id"],
-                    "document_id": d["grant_id"],
+                    "document_id": d["document_id"],
                     "title": d["title"],
                     "content": d["content"],
                     "sourceurl": path.name.split('/')[-1],

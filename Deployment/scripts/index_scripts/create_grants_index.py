@@ -5,6 +5,7 @@ key_vault_name = 'kv_to-be-replaced'
 
 #hardcoded values
 index_name = "grantsindex"
+drafts_index_name = 'draftsindex'
 file_system_client_name = "data"
 directory = 'demodata/nih_grants' 
 csv_file_name = '/metadata/nih_grants.csv'
@@ -218,7 +219,7 @@ index_client = SearchIndexClient(
 fields = [
     SimpleField(name="id", type=SearchFieldDataType.String, key=True, sortable=True, filterable=True, facetable=True),
     SearchableField(name="chunk_id", type=SearchFieldDataType.String),
-    SearchableField(name="grant_id", type=SearchFieldDataType.String),
+    SearchableField(name="document_id", type=SearchFieldDataType.String),
     SearchableField(name="title", type=SearchFieldDataType.String),
     SearchableField(name="content", type=SearchFieldDataType.String),
     SearchableField(name="sourceurl", type=SearchFieldDataType.String),
@@ -320,6 +321,7 @@ paths = file_system_client.get_paths(path=directory_name)
 search_credential = AzureKeyCredential(search_key)
 # Get Search Client
 client = SearchClient(search_endpoint, index_name, search_credential)
+drafts_client = SearchClient(search_endpoint, drafts_index_name, search_credential)
 # get index client
 index_client = SearchIndexClient(endpoint=search_endpoint, credential=search_credential)
 
@@ -341,9 +343,9 @@ for path in paths:
     pdf_file.readinto(stream)
     pdf_reader = PyPDF2.PdfReader(stream)
     filename = path.name.split('/')[-1]
-    grant_id = filename.replace('.pdf','')
+    document_id = filename.replace('.pdf','')
 
-    df_file_metadata = df_metadata[df_metadata['grant_id']==grant_id].iloc[0]
+    df_file_metadata = df_metadata[df_metadata['grant_id']==document_id].iloc[0]
    
     text = "" 
 
@@ -362,7 +364,7 @@ for path in paths:
             chunk_num += 1
             d = {
                 "chunk_id" : path.name.split('/')[-1] + '_' + str(page_num).zfill(2) +  '_' + str(chunk_num).zfill(2),
-                "grant_id": str(df_file_metadata['grant_id']),
+                "document_id": str(df_file_metadata['grant_id']),
                 "content": chunk,       
                 "title": df_file_metadata['title'] } 
 
@@ -387,7 +389,7 @@ for path in paths:
             {
                     "id": base64.urlsafe_b64encode(bytes(d["chunk_id"], encoding='utf-8')).decode('utf-8'),
                     "chunk_id": d["chunk_id"],
-                    "grant_id": d["grant_id"],
+                    "document_id": d["document_id"],
                     "title": d["title"],
                     "content": d["content"],
                     "sourceurl": path.name.split('/')[-1],
@@ -408,10 +410,12 @@ for path in paths:
                
             if counter % 10 == 0:
                 result = client.upload_documents(documents=docs)
+                result = drafts_client.upload_documents(documents=docs)
                 docs = []
                 print(f' {str(counter)} uploaded')
 #upload the last batch
 if docs != []:
     client.upload_documents(documents=docs)
+    drafts_client.upload_documents(documents=docs)
 
 
