@@ -8,7 +8,7 @@ file_system_client_name = "data"
 directory = 'demodata/completed_grants' 
 csv_file_name = '/metadata/completed_grants.csv'
 
-num_pages = 10
+num_pages = 2
 
 from azure.keyvault.secrets import SecretClient  
 from azure.identity import DefaultAzureCredential  
