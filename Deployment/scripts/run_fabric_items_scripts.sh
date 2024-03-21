@@ -10,7 +10,7 @@ requirementFileUrl=${baseUrl}"Deployment/scripts/fabric_scripts/requirements.txt
 
 echo "Download Started"
 
-# Download the create_index python files
+# Download the create_fabric python files
 curl --output "create_fabric_items.py" ${baseUrl}"Deployment/scripts/fabric_scripts/create_fabric_items.py"
 
 curl --output "create_articles_index.ipynb" ${baseUrl}"Deployment/scripts/fabric_scripts/notebooks/create_articles_index.ipynb"
