@@ -1,9 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useRef, useState, useEffect, useContext, useLayoutEffect } from 'react'
 import { Text, CommandBarButton, IconButton, Dialog, DialogType, Stack } from '@fluentui/react'
-import { DefaultButton as FluentButton } from '@fluentui/react/lib/Button'
+import { PrimaryButton } from '@fluentui/react/lib/Button';
 import { SquareRegular, ErrorCircleRegular } from '@fluentui/react-icons'
-
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
@@ -316,13 +315,13 @@ const Chat = ({ chatType }: Props) => {
     })
   }
 
-  var title = ''
+  let title = ''
   switch (appStateContext?.state.sidebarSelection) {
     case SidebarOptions.Article:
-      title = 'Explore Scientific Journals'
+      title = 'Explore scientific journals'
       break
     case SidebarOptions.Grant:
-      title = 'Explore Grant Documents'
+      title = 'Explore grant documents'
       break
   }
 
@@ -461,7 +460,7 @@ const Chat = ({ chatType }: Props) => {
                             <Stack horizontal verticalAlign="center">
                                 <span aria-label="Citations" className={styles.citationPanelHeader}>References</span>
                             </Stack>
-                            <IconButton iconProps={{ iconName: 'Cancel' }} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)} />
+                            <IconButton iconProps={{ iconName: 'Cancel', style: { color: '#424242' } }} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)} />
                         </Stack>
                         <h5 className={styles.citationPanelTitle} tabIndex={0} title={activeCitation.url && !activeCitation.url.includes('blob.core') ? activeCitation.url : activeCitation.title ?? ''} onClick={() => onViewSource(activeCitation)}>{activeCitation.title}</h5>
                         <div tabIndex={0}>
@@ -473,7 +472,7 @@ const Chat = ({ chatType }: Props) => {
                                 rehypePlugins={[rehypeRaw]}
                             />
                         </div>
-                        <FluentButton
+                        <PrimaryButton
                             iconProps={{ iconName: 'CirclePlus', style: { color: 'white' } }} // Set icon color to white
                             onClick={() => {
                               if (activeCitation.filepath && activeCitation.url) {
@@ -492,12 +491,11 @@ const Chat = ({ chatType }: Props) => {
                               }
                             }}
                             styles={{
-                              root: { backgroundColor: '#0078D4', borderRadius: '4px', marginTop: '10px', padding: '12px 24px', color: 'white' }, // Set text color to white
-                              rootHovered: { backgroundColor: '#005A9E' } // Color change on hover
+                              root: { borderRadius: '4px', marginTop: '10px', padding: '12px 24px' }
                             }}
                         >
                             Favorite
-                        </FluentButton>
+                        </PrimaryButton>
                     </Stack.Item>
                     )}
             </Stack>

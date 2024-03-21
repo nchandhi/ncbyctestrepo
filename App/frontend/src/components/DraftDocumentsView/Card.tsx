@@ -10,16 +10,15 @@ import {
   Dialog,
   DialogTrigger,
   DialogSurface,
-  DialogTitle,
-  DialogBody, Card as FluentCard, CardHeader, CardProps as FluentCardProps
+  DialogTitle, Card as FluentCard, CardHeader, CardProps as FluentCardProps
 } from '@fluentui/react-components'
-import type { PopoverProps } from "@fluentui/react-components"
+import type { PopoverProps } from '@fluentui/react-components'
 import { type DocumentSection, documentSectionGenerate } from '../../api'
 import { AppStateContext } from '../../state/AppProvider'
 import styles from './DraftDocumentsView.module.css'
 import { Stack } from '@fluentui/react'
 import { createSvgIcon } from '@fluentui/react-icons-mdl2'
-import { Dismiss24Regular } from "@fluentui/react-icons";
+import { Dismiss24Regular } from '@fluentui/react-icons'
 
 const RegenerateIcon = createSvgIcon({
   svg: ({ classes }) => (
@@ -67,8 +66,9 @@ export const ResearchTopicCard = (): JSX.Element => {
 
       <div className={mergeClasses(styles.flex, styles.cardContent)}>
         <Textarea
+        placeholder='Type a new topic...'
           className={styles.cardTextArea}
-          size="large"
+          size="medium"
           onChange={(event, data) => {
             const documentSections = appStateContext?.state.documentSections ?? []
             for (let i = 0; i < documentSections.length; i++) {

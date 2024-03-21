@@ -69,15 +69,14 @@ export const GrantView = () => {
               {grantsCitations.map((citation: Citation, index: number) => (
                 <div key={index} style={{ position: "relative" }}>
                   <Stack horizontal verticalAlign="center" style={{ alignItems: "flex-start" }}>
-                    <div
+                    {/* <div
                       style={{
-                        marginRight: "5px",
                         width: "24px", // Set fixed width for the icon
                         height: "24px", // Set fixed height for the icon
                       }}
                     >
                       <News24Regular />
-                    </div>
+                    </div> */}
                     <Text>
                       {citation.title ? citation.title.split(' ').slice(0, 5).join(' ') : ''}
                       {citation.title && citation.title.split(' ').length > 5 ? '...' : ''}

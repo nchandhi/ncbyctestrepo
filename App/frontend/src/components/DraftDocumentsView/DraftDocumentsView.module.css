@@ -18,6 +18,14 @@
   border-top: 2px solid #D2D0CE;
 }
 
+.draftDocumentTitle{
+  color: #797775;
+  margin-top: 25px;
+  font-weight: 600;
+  padding-bottom: 12px;
+  align-self: start;
+}
+
 .contentContainer {
   width: 100%;
   box-shadow: none;
@@ -353,7 +361,7 @@
     align-items: flex-start; 
     gap: 1rem; 
     width: 30%; 
-    margin-top: 20px; 
+    /* margin-top: 20px;  */
     margin-bottom: 30px;
   }
 

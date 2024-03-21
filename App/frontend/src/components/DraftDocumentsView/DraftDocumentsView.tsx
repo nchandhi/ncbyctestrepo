@@ -32,7 +32,7 @@ export const DraftDocumentsView = (): JSX.Element => {
   const [signature, setSignature] = useState('')
   const appStateContext = useContext(AppStateContext)
   const [exportPopupOpen, setExportPopupOpen] = React.useState(false)
-const classes = useStyles()
+  const classes = useStyles()
   const exportButtonRef = React.useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
@@ -157,7 +157,7 @@ const handleCreatePDF = (): void => {
   return (
     <div className={styles.container}>
       <Stack className={styles.draftDocumentHeader}>
-        <Text className={classes.draftDocumentTitle}>Draft Grant Proposal</Text>
+        <Text variant="xLarge" className={styles.draftDocumentTitle}>Draft grant proposal</Text>
         <ResearchTopicCard />
       </Stack>
 

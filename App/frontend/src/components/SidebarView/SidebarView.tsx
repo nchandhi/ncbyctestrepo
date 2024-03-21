@@ -112,7 +112,6 @@ export const SidebarView = (): JSX.Element => {
                             alignItems: 'center',
                             borderRadius: '8px',
                             boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
-                            border: '1px solid rgba(0, 0, 0, 0.25)',
                             backgroundColor: '#F3F2F1'
                           }}
 
@@ -127,7 +126,7 @@ export const SidebarView = (): JSX.Element => {
                                     <Button
                                         appearance="transparent"
                                         size="large"
-                                        icon={sidebarOptionIcon[item as keyof typeof sidebarOptionIcon]('#797775')}
+                                        icon={sidebarOptionIcon[item as keyof typeof sidebarOptionIcon]('#004C87')}
 
                                         style={{
                                           padding: '0'
@@ -135,7 +134,7 @@ export const SidebarView = (): JSX.Element => {
                                     />
                                     <Text className={styles.noSelect}
                                         style={{
-                                          color: '#797775',
+                                          color: '#004C87',
                                           fontSize: '12px'
                                         }}
                                     >{item}</Text>
