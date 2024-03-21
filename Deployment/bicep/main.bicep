@@ -6,8 +6,8 @@ targetScope = 'resourceGroup'
 @description('Prefix Name')
 param solutionPrefix string
 
-@description('Fabric Workspace Id if you have one, else leave it empty. ')
-param fabricWorkspaceId string
+// @description('Fabric Workspace Id if you have one, else leave it empty. ')
+// param fabricWorkspaceId string
 
 var resourceGroupLocation = resourceGroup().location
 var resourceGroupName = resourceGroup().name
@@ -117,17 +117,17 @@ module createIndex 'deploy_index_scripts.bicep' = {
   dependsOn:[keyvaultModule]
 }
 
-module createFabricItems 'deploy_fabric_scripts.bicep' = if (fabricWorkspaceId != '') {
-  name : 'deploy_fabric_scripts'
-  params:{
-    solutionLocation: solutionLocation
-    identity:managedIdentityModule.outputs.managedIdentityOutput.id
-    baseUrl:baseUrl
-    keyVaultName:keyvaultModule.outputs.keyvaultOutput.name
-    fabricWorkspaceId:fabricWorkspaceId
-  }
-  dependsOn:[keyvaultModule]
-}
+// module createFabricItems 'deploy_fabric_scripts.bicep' = if (fabricWorkspaceId != '') {
+//   name : 'deploy_fabric_scripts'
+//   params:{
+//     solutionLocation: solutionLocation
+//     identity:managedIdentityModule.outputs.managedIdentityOutput.id
+//     baseUrl:baseUrl
+//     keyVaultName:keyvaultModule.outputs.keyvaultOutput.name
+//     fabricWorkspaceId:fabricWorkspaceId
+//   }
+//   dependsOn:[keyvaultModule]
+// }
 
 
 // // module createAIHub 'deploy_ai_hub_scripts.bicep' = {

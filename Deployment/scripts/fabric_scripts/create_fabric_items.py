@@ -9,21 +9,6 @@ import pandas as pd
 # cred = credential.get_token('https://api.fabric.microsoft.com/.default')
 # token = cred.token
 
-import msal
-
-app = msal.PublicClientApplication(
-    "3f2a60f6-ccf2-49df-bb65-59d1b76de009", 
-    authority="https://login.microsoftonline.com/13a0ae08-3cf0-4430-aa9b-103aa57bb688",
-    client_credential=None
-)
-
-scopes = ["https://api.fabric.microsoft.com/Workspace.ReadWrite.All",
-          "https://api.fabric.microsoft.com/Item.ReadWrite.All",
-          "https://api.fabric.microsoft.com/OneLake.ReadWrite.All"]
-          
-result = app.acquire_token_interactive(scopes=scopes)
-token = result["access_token"]
-
 key_vault_name = 'kv_to-be-replaced'
 workspaceId = "workspaceId_to-be-replaced"
 
