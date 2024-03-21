@@ -48,7 +48,7 @@ For additional training and support, please see:
 
 ### **How to install/deploy**
 
-1. Click the following deployment button to create the required resources for this accelerator in your Azure Subscription. Follow steps in [Fabric guide](./Deployment/FabricGuide.md) to create a workspace if you choose Fabric for data engineering.
+1. Click the following deployment button to create the required resources for this accelerator in your Azure Subscription.
 
    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnchandhi%2Fncbyctestrepo%2Fmain%2FDeployment%2Fbicep%2Fmain.json)
 
@@ -62,7 +62,7 @@ For additional training and support, please see:
 
 4. Follow steps in [AI Studio Deployment guide](./Deployment/AIStudioDeployment.md) to set up the grant draft proposal endpoint.
 
-<!-- 5. Follow steps in [Fabric Deployment guide](./Deployment/FabricPipelines.md) to set up the data processing pipelines. -->
+5. Follow steps in [Fabric Deployment guide](./Deployment/FabricPipelines.md) to set up the data processing pipelines.
 
 6. Follow steps in [Promptflow Evaluation guide](./Deployment/PromptFlowEvaluation.md) to set up the the evaluation flows.
 

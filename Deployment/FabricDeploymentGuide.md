@@ -7,9 +7,9 @@ Please follow the steps below to set up the Fabric Workspace and collect the id 
     ![Create Workspace](/Deployment/images/fabric/workspaces.png)
 
 3. Enter a Workspace Name and click on `Apply`
-    ![Getting Started](/Deployment/images/fabric/CreateWorkspace.png)
+    ![New Workspace](/Deployment/images/fabric/CreateWorkspace.png)
 
-4. On the next page, copy the id of workspace from the URL as shown below and save it for use in next step:
-    ![Getting Started](/Deployment/images/fabric/WorkspaceGuid_highlighted.png)
+4. On the next page, click on `New`
+    ![Create Workspace](/Deployment/images/fabric/WorkspaceGuid.png)
 
 5. Return to previous page.
