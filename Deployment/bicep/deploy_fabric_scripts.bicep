@@ -3,19 +3,19 @@ param solutionLocation string
 
 param baseUrl string
 param keyVaultName string
-// param identity string
+param identity string
 param fabricWorkspaceId string
 
 resource create_index 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   kind:'AzureCLI'
   name: 'create_fabric_items'
   location: solutionLocation // Replace with your desired location
-  // identity: {
-  //   type: 'UserAssigned'
-  //   userAssignedIdentities: {
-  //     '${identity}' : {}
-  //   }
-  // }
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${identity}' : {}
+    }
+  }
   properties: {
     azCliVersion: '2.52.0'
     primaryScriptUri: '${baseUrl}Deployment/scripts/run_fabric_items_scripts.sh' 

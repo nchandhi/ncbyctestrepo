@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "11986552842533480493"
+      "templateHash": "18080924537061692304"
     }
   },
   "parameters": {
@@ -57,7 +57,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "9709088936627504990"
+              "templateHash": "13191820650863304584"
             }
           },
           "parameters": {
@@ -81,7 +81,41 @@
               "metadata": {
                 "description": "Name"
               }
+            },
+            "actions": {
+              "type": "array",
+              "defaultValue": [
+                "Microsoft.Synapse/workspaces/write",
+                "Microsoft.Synapse/workspaces/read"
+              ],
+              "metadata": {
+                "description": "Array of actions for the roleDefinition"
+              }
+            },
+            "notActions": {
+              "type": "array",
+              "defaultValue": [],
+              "metadata": {
+                "description": "Array of notActions for the roleDefinition"
+              }
+            },
+            "roleName": {
+              "type": "string",
+              "defaultValue": "[format('Synapse Administrator-{0}', parameters('solutionName'))]",
+              "metadata": {
+                "description": "Friendly name of the role definition"
+              }
+            },
+            "roleDescription": {
+              "type": "string",
+              "defaultValue": "[format('Synapse Administrator-{0}', parameters('solutionName'))]",
+              "metadata": {
+                "description": "Detailed description of the role definition"
+              }
             }
+          },
+          "variables": {
+            "roleDefName": "[guid(resourceGroup().id, string(parameters('actions')), string(parameters('notActions')))]"
           },
           "resources": [
             {
@@ -105,6 +139,39 @@
               },
               "dependsOn": [
                 "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Authorization/roleDefinitions",
+              "apiVersion": "2018-07-01",
+              "name": "[variables('roleDefName')]",
+              "properties": {
+                "roleName": "[parameters('roleName')]",
+                "description": "[parameters('roleDescription')]",
+                "type": "customRole",
+                "permissions": [
+                  {
+                    "actions": "[parameters('actions')]",
+                    "notActions": "[parameters('notActions')]"
+                  }
+                ],
+                "assignableScopes": [
+                  "[resourceGroup().id]"
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "name": "[guid(resourceGroup().id, resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName')), resourceId('Microsoft.Authorization/roleDefinitions', variables('roleDefName')))]",
+              "properties": {
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName')), '2023-01-31').principalId]",
+                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('roleDefName'))]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('miName'))]",
+                "[resourceId('Microsoft.Authorization/roleDefinitions', variables('roleDefName'))]"
               ]
             }
           ],
@@ -1282,6 +1349,9 @@
           "solutionLocation": {
             "value": "[variables('solutionLocation')]"
           },
+          "identity": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_managed_identity'), '2022-09-01').outputs.managedIdentityOutput.value.id]"
+          },
           "baseUrl": {
             "value": "[variables('baseUrl')]"
           },
@@ -1299,7 +1369,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.25.53.49325",
-              "templateHash": "8707466007996156937"
+              "templateHash": "594208534916960111"
             }
           },
           "parameters": {
@@ -1315,6 +1385,9 @@
             "keyVaultName": {
               "type": "string"
             },
+            "identity": {
+              "type": "string"
+            },
             "fabricWorkspaceId": {
               "type": "string"
             }
@@ -1326,6 +1399,12 @@
               "name": "create_fabric_items",
               "kind": "AzureCLI",
               "location": "[parameters('solutionLocation')]",
+              "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                  "[format('{0}', parameters('identity'))]": {}
+                }
+              },
               "properties": {
                 "azCliVersion": "2.52.0",
                 "primaryScriptUri": "[format('{0}Deployment/scripts/run_fabric_items_scripts.sh', parameters('baseUrl'))]",
@@ -1339,7 +1418,8 @@
         }
       },
       "dependsOn": [
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_keyvault')]"
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_keyvault')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_managed_identity')]"
       ]
     },
     {
