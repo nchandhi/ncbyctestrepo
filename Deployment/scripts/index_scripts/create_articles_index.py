@@ -286,6 +286,13 @@ index = SearchIndex(name=index_name, fields=fields,
 result = index_client.create_or_update_index(index)
 print(f' {result.name} created')
 
+# Create the drafts search index with the semantic settings
+index = SearchIndex(name=drafts_index_name, fields=fields,
+                    vector_search=vector_search, semantic_search=semantic_search)
+
+result = index_client.create_or_update_index(index)
+print(f' {result.name} created')
+
 
 #add documents to the index
 
