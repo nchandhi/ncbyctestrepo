@@ -10,7 +10,7 @@ cred = credential.get_token('https://api.fabric.microsoft.com/.default')
 token = cred.token
 
 key_vault_name = 'kv_to-be-replaced'
-workspaceId = "workspaceId_to-be-replaced"
+workspaceId = "53cbf30a-b408-4886-adc0-633e02cdb93e" #workspaceId_to-be-replaced"
 
 fabric_headers = {"Authorization": "Bearer " + token.strip()}
 fabric_base_url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspaceId}/"
