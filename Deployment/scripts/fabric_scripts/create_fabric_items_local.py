@@ -6,17 +6,21 @@ import pandas as pd
 
 credential = DefaultAzureCredential()
 
+scopes = ["https://api.fabric.microsoft.com/Workspace.ReadWrite.All",
+          "https://api.fabric.microsoft.com/Item.ReadWrite.All",
+          "https://api.fabric.microsoft.com/OneLake.ReadWrite.All"]
+
 cred = credential.get_token('https://api.fabric.microsoft.com/.default')
 token = cred.token
 
 key_vault_name = 'kv_to-be-replaced'
-workspaceId = "workspaceId_to-be-replaced"
+workspaceId = "7382d2bb-984a-4906-be50-95cb23cc7444" #"workspaceId_to-be-replaced"
 
 fabric_headers = {"Authorization": "Bearer " + token.strip()}
 fabric_base_url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspaceId}/"
 fabric_items_url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspaceId}/items/"
 
-lakehouse_name = 'Lakehouse1'
+lakehouse_name = 'Lakehouse3'
 
 lakehouse_data = {
   "displayName": lakehouse_name,
