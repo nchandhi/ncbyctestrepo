@@ -11,7 +11,7 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
     ![Getting Started](/Deployment/images/aiStudio/GettingStarted.png)
 
 4. Enter a new AI Hub Resource Name. And then select Azure Subscription, Resource Group, Location from drop-down menus. You should choose the same resource group you created from ARM deployment in previous step. 
-    > NOTE: Do not create new resources in this step and link to the ones created during one-click deployment.
+    > IMPORTANT: Do not create new resources in this step and link to the ones created during one-click deployment. This applies to Resource group, Azure OpenAI and Azure AI Search fields.
 
     ![Create AI Hub](/Deployment/images/aiStudio/CreateAIHub.png)
 
@@ -54,7 +54,10 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
 
     ![Select Runtime](/Deployment/images/aiStudio/SelectRunTime.png)
 
-6. Click on `Deploy` button once it is enabled. Enter `draftsinference` as the Endpoint Name. You can leave the Deployment name, Virtual machine type, and Instace count as populated and click on `Review + Create`. Optionally you can choose a different VM type/size and increase/decrease the Instance count as needed. Then review details and click on `Create` in the next screen.
+6. Click on `Deploy` button once it is enabled. Enter a unique name for Endpoint Name field.
+    >IMPORTANT: This name has to be unique across all endpoints in your Azure subscription.
+
+    You can leave the Deployment name, Virtual machine type, and Instace count as populated and click on `Review + Create`. Optionally you can choose a different VM type/size and increase/decrease the Instance count as needed. Then review details and click on `Create` in the next screen.
 
     ![Deploy Draft Flow](/Deployment/images/aiStudio/DeployDraftFlow.png)
 
@@ -102,6 +105,27 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
    ![Application Restart](/Deployment/images/aiStudio/AppServiceRestart.png)
 
     
+## Step 4: Add Authentication in Azure App Service configuration
+
+1. Click on `Authentication` from left menu.
+
+  ![Authentication](/Deployment/images/aiStudio/AppAuthentication.png)
+
+2. Click on `+ Add Provider` to see a list of identity providers.
+
+  ![Authentication Identity](/Deployment/images/aiStudio/AppAuthenticationIdentity.png)
+
+3. Click on `+ Add Provider` to see a list of identity providers.
+
+  ![Add Provider](/Deployment/images/aiStudio/AppAuthIdentityProvider.png)
+
+4. Select the first option `Microsoft Entra Id` from the drop-down list.
+ ![Add Provider](/Deployment/images/aiStudio/AppAuthIdentityProviderAdd.png)
+
+5. Accept the default values and click on `Add` button to go back to the previous page with the identify provider added.
+ ![Add Provider](/Deployment/images/aiStudio/AppAuthIdentityProviderAdded.png)
+
+
 
 
 

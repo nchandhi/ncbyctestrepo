@@ -6,7 +6,7 @@ targetScope = 'resourceGroup'
 @description('Prefix Name')
 param solutionPrefix string
 
-@description('Fabric Workspace Id')
+@description('Fabric Workspace Id if you have one, else leave it empty.')
 param fabricWorkspaceId string
 
 var resourceGroupLocation = resourceGroup().location
@@ -117,7 +117,8 @@ module storageAccountModule 'deploy_storage_account.bicep' = {
 //   dependsOn:[keyvaultModule]
 // }
 
-module createFabricItems 'deploy_fabric_scripts.bicep' = {
+
+module createFabricItems 'deploy_fabric_scripts.bicep' = if (fabricWorkspaceId != '') {
   name : 'deploy_fabric_scripts'
   params:{
     solutionLocation: solutionLocation
@@ -128,6 +129,7 @@ module createFabricItems 'deploy_fabric_scripts.bicep' = {
   }
   // dependsOn:[keyvaultModule]
 }
+
 
 // // module createAIHub 'deploy_ai_hub_scripts.bicep' = {
 // //   name : 'deploy_ai_hub_scripts'
