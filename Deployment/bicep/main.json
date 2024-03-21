@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.25.53.49325",
-      "templateHash": "13189030036146354729"
+      "templateHash": "4103030327029476397"
     }
   },
   "parameters": {
@@ -20,7 +20,7 @@
     "fabricWorkspaceId": {
       "type": "string",
       "metadata": {
-        "description": "Fabric Workspace Id"
+        "description": "Fabric Workspace Id if you have one, else leave it empty."
       }
     }
   },
@@ -279,6 +279,7 @@
       ]
     },
     {
+      "condition": "[not(equals(parameters('fabricWorkspaceId'), ''))]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
       "name": "deploy_fabric_scripts",
