@@ -14,7 +14,7 @@ This solution accelerator helps build your own AI assistants quickly using Azure
 
 **Scenario**
 
-The Grant Writer assistant helps the researchers find relevant articles and grants available for their research topic easily using a conversational chatbot. It also accelerates the grant application creation process with the power of large language models and content generation techniques. Researcher can generate different sections of a grant application with a simple button click, then they can refine the prompts and regenerate individual sections to add more details as needed. Finally, the generated grant application can be exported as a PDF or a Microsoft Word document for further processing.
+The Grant Writer assistant helps the researchers find relevant articles and grants available for their research topic easily using a conversational chatbot. It also accelerates the grant application creation process with the power of large language models(LLMs) and content generation techniques. Researcher can generate different sections of a grant application with a simple button click, then they can refine the prompts and regenerate individual sections to add more details as needed. Finally, the generated grant application can be exported as a PDF or a Microsoft Word document for further processing.
 
 **Key features**
 
