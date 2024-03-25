@@ -463,15 +463,6 @@ const Chat = ({ chatType }: Props) => {
                             <IconButton iconProps={{ iconName: 'Cancel', style: { color: '#424242' } }} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)} />
                         </Stack>
                         <h5 className={styles.citationPanelTitle} tabIndex={0} title={activeCitation.url && !activeCitation.url.includes('blob.core') ? activeCitation.url : activeCitation.title ?? ''} onClick={() => onViewSource(activeCitation)}>{activeCitation.title}</h5>
-                        <div tabIndex={0}>
-                            <ReactMarkdown
-                                linkTarget="_blank"
-                                className={styles.citationPanelContent}
-                                children={activeCitation.content}
-                                remarkPlugins={[remarkGfm]}
-                                rehypePlugins={[rehypeRaw]}
-                            />
-                        </div>
                         <PrimaryButton
                             iconProps={{ iconName: 'CirclePlus', style: { color: 'white' } }} // Set icon color to white
                             onClick={() => {
@@ -496,6 +487,16 @@ const Chat = ({ chatType }: Props) => {
                         >
                             Favorite
                         </PrimaryButton>
+                        <div tabIndex={0}>
+                            <ReactMarkdown
+                                linkTarget="_blank"
+                                className={styles.citationPanelContent}
+                                children={activeCitation.content}
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                            />
+                        </div>
+                        
                     </Stack.Item>
                     )}
             </Stack>

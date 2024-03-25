@@ -16,7 +16,7 @@ const Homepage: React.FC = () => {
         <header className={styles.header}>
           <img src={icon} alt="App Icon" className={styles.appIcon} />
           <h1>Grant <span className={styles.gradientText}>Writer</span></h1>
-          <Body1Strong>AI-powered chat for research acceleration</Body1Strong>
+          <Body1Strong>AI-powered assistant for research acceleration</Body1Strong>
         </header>
 
         <TextFieldCard />

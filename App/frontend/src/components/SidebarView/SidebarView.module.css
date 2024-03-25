@@ -31,6 +31,10 @@
     color: #004C87;
 }
 
+.sidebarNavigationButton:active{
+    color:#797775 !important;
+} 
+
 .mt1 {
     margin-top: 1rem !important;
 }

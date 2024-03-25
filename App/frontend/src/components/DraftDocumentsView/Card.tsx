@@ -66,7 +66,7 @@ export const ResearchTopicCard = (): JSX.Element => {
 
       <div className={mergeClasses(styles.flex, styles.cardContent)}>
         <Textarea
-        placeholder='Type a new topic...'
+          placeholder='Type a new topic...'
           className={styles.cardTextArea}
           size="medium"
           onChange={(event, data) => {
@@ -192,7 +192,7 @@ export const Card = (props: CardProps) => {
             <Button
               disabled={sectionInformation?.content === ''}
               className={styles.Gen} icon={<RegenerateIcon />}>
-              Re-generate
+              Regenerate
             </Button>
           </PopoverTrigger>
           <PopoverSurface

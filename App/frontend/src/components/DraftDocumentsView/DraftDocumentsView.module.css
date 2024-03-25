@@ -177,10 +177,10 @@
   }
   .cardParagraph{
     padding: 5px; 
-    height: 250px; 
+    height: 300px; 
     width: 100%; 
     word-wrap: break-word !important; 
-    overflow: hidden !important; 
+    overflow: auto;
     white-space: pre-wrap !important; 
     resize: vertical !important;
   }
