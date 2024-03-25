@@ -10,22 +10,29 @@ User story
 
 **Solution accelerator overview**
 
-This solution accelerator helps build your own AI assistants quickly using Azure Open AI Service, Azure AI Search and Microsoft Fabric. While we have used Research Grant Writer Assistant as an example scenario, this can be used by any customer looking for reusable architecture and code snippets to build AI assistants with their own enterprise data.
+This solution accelerator is a powerful tool that helps you create your own AI assistants. The accelerator can be used by any customer looking for reusable architecture and code snippets to build AI assistants with their own enterprise data. 
+
+It leverages Azure Open AI Service, Azure AI Search and Microsoft Fabric, to identify relevant documents, summarize and categorize vast amounts of unstructured information, and accelerate the overall document review and content generation process. 
 
 **Scenario**
 
-The Grant Writer assistant helps the researchers find relevant articles and grants available for their research topic easily using a conversational chatbot. It also accelerates the grant application creation process with the power of large language models(LLMs) and content generation techniques. Researcher can generate different sections of a grant application with a simple button click, then they can refine the prompts and regenerate individual sections to add more details as needed. Finally, the generated grant application can be exported as a PDF or a Microsoft Word document for further processing.
+This example focuses on a researcher who wants to explore leading flu vaccine studies and relevant grants to accelerate submission of a grant proposal. 
+
+The assistant helps the researchers find relevant articles and grants available for their research topic easily using a conversational assistant. Researcher can generate different sections of a grant application with a simple button click, then they can refine the prompts and regenerate individual sections to add more details as needed. Finally, the generated grant application can be exported as a PDF or a Microsoft Word document for further processing.
+
+The sample data is sourced from a select set of research published on [PubMed](https://pubmed.ncbi.nlm.nih.gov/), select [NIH](https://www.nih.gov/grants-funding) grant announcements and sample grant applications. The documents are intended for use as sample data only.
+
+<br/>
 
 **Key features**
 
-- **Fabric for Data Engineering at scale**  Fabric pipelines help process data mounted from Azure Storage Account at scale and add to AI search index with vector embeddings.
-- **Azure AI Search as vector store** Azure AI search to enable Retrieval Augmented Generation and ground the application on collected articles and grants dataset.
-- **Azure Open AI Service** Azure Open AI service to help researchers in content search, summarization and text generation for grant application drafts.
-- **Azure AI Studio** AI Studio to help build the chat and text generation flow deployments easily and to also validate and improve the LLM responses.
-- **Prompt Flow Evaluation** Promptflow evaluation tools to help test the flows for relevance,groundedness and any harmful content generation.
+![Key Features](/Deployment/images/readMe/keyfeatures.png)
+
+<br/>
 
 **Below is an image of the solution accelerator.**
-    ![Landing Page](/Deployment/images/readMe/landing_page.png)
+
+![Landing Page](/Deployment/images/readMe/landing_page.png)
 
 
 <h2><img src="Deployment/images/readMe/oneClickDeploy.png" width="64">
@@ -42,13 +49,21 @@ For additional training and support, please see:
 1. [Azure Open AI](https://learn.microsoft.com/en-us/azure/ai-services/openai/) 
 2. [Azure AI Search](https://learn.microsoft.com/en-us/azure/search/) 
 3. [Microsoft Fabric](https://learn.microsoft.com/en-us/fabric/) 
+4. [Azure AI Studio](https://learn.microsoft.com/en-us/azure/ai-studio/) 
 
 ### Solution accelerator architecture
 ![image](/Deployment/images/readMe/architecture.png)
 
+
+ > Note: Some features contained in this repository are in private preview. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/en-us/support/legal/preview-supplemental-terms).
+
+
 ### **How to install/deploy**
 
-1. Click the following deployment button to create the required resources for this accelerator in your Azure Subscription.
+1. Please check the link [Azure Products by Region](
+https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/?products=all) and choose a region where Azure AI Search, Semantic Ranker, Azure Open AI service, and Azure AI Studio are available. 
+
+2. Click the following deployment button to create the required resources for this accelerator in your Azure Subscription.
 
    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnchandhi%2Fncbyctestrepo%2Fmain%2FDeployment%2Fbicep%2Fmain.json)
 
@@ -56,16 +71,15 @@ For additional training and support, please see:
 
    ![image](/Deployment/images/readMe/armDeployment.png)
 
-3. When deployment is complete, launch the application by navigating to
-    your Azure resource group, choosing the app service resource, and
-    clicking on the default domain. You should bookmark this URL to have quick access to your deployed application.
+3. When Deployment is complete, follow steps in [AI Studio Deployment guide](./Deployment/AIStudioDeployment.md) to set up the grant draft proposal endpoint.
 
-4. Follow steps in [AI Studio Deployment guide](./Deployment/AIStudioDeployment.md) to set up the grant draft proposal endpoint.
+4. When AI Studio deployment is complete, launch the application by navigating to your Azure resource group, choosing the app service resource, and clicking on the default domain. You should bookmark this URL to have quick access to your deployed application.
 
-5. Follow steps in [Fabric Deployment guide](./Deployment/FabricDeployment.md) to set up the data processing pipelines.
+The next steps are optional for additional learning. Not required to deploy the solution and run the Grant Writer Assistant.
 
-6. Follow steps in [Promptflow Evaluation guide](./Deployment/PromptFlowEvaluation.md) to set up the the evaluation flows.
+5. Optional - Follow steps in [Fabric Deployment guide](./Deployment/FabricDeployment.md) to set up the data processing pipelines in Fabric.
 
+6. Optional - Follow steps in [Promptflow Evaluation guide](./Deployment/PromptFlowEvaluation.md) to set up the evaluation flows.
 
 
 <br/>

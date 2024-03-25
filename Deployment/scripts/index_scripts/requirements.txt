@@ -1,8 +1,8 @@
 azure-storage-file-datalake
-langchain
+# langchain
 openai
-PyPDF2
-tiktoken
+pypdf
+# tiktoken
 azure-identity
 azure-ai-textanalytics
 azure-search-documents==11.4.0

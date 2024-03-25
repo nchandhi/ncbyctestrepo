@@ -1,5 +1,4 @@
 #Get Azure Key Vault Client
-
 key_vault_name = 'kv_to-be-replaced'
 
 #hardcoded values
@@ -8,7 +7,7 @@ drafts_index_name = 'draftsindex'
 file_system_client_name = "data"
 directory = 'demodata/pubmed_articles' 
 csv_file_name = '/metadata/pubmed_articles.csv'
-num_pages = 10
+num_pages = 5
 
 from azure.keyvault.secrets import SecretClient  
 from azure.identity import DefaultAzureCredential  
@@ -179,8 +178,8 @@ def get_embeddings(text: str,openai_api_base,openai_api_version,openai_api_key):
 
     return embedding
 
-from langchain.text_splitter import MarkdownTextSplitter, RecursiveCharacterTextSplitter, PythonCodeTextSplitter
-import tiktoken
+# from langchain.text_splitter import MarkdownTextSplitter, RecursiveCharacterTextSplitter, PythonCodeTextSplitter
+# import tiktoken
 
 import re
 
@@ -191,21 +190,57 @@ def clean_spaces_with_regex(text):
     cleaned_text = re.sub(r'\.{2,}', '.', cleaned_text)
     return cleaned_text
 
-def estimate_tokens(text):
-    GPT2_TOKENIZER = tiktoken.get_encoding("gpt2")
-    return(len(GPT2_TOKENIZER.encode(text)))
+# def estimate_tokens(text):
+#     GPT2_TOKENIZER = tiktoken.get_encoding("gpt2")
+#     return(len(GPT2_TOKENIZER.encode(text)))
+
+# def chunk_data(text):
+#     text = clean_spaces_with_regex(text)
+#     SENTENCE_ENDINGS = [".", "!", "?"]
+#     WORDS_BREAKS = ['\n', '\t', '}', '{', ']', '[', ')', '(', ' ', ':', ';', ',']
+#     num_tokens = 500 #1024 #500
+#     min_chunk_size = 10
+#     token_overlap = 0
+
+#     splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(separators=SENTENCE_ENDINGS + WORDS_BREAKS,chunk_size=num_tokens, chunk_overlap=token_overlap)
+
+#     return(splitter.split_text(text))
 
 def chunk_data(text):
+    tokens_per_chunk = 500 #1024
     text = clean_spaces_with_regex(text)
     SENTENCE_ENDINGS = [".", "!", "?"]
     WORDS_BREAKS = ['\n', '\t', '}', '{', ']', '[', ')', '(', ' ', ':', ';', ',']
-    num_tokens = 500 #1024 #500
-    min_chunk_size = 10
-    token_overlap = 0
 
-    splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(separators=SENTENCE_ENDINGS + WORDS_BREAKS,chunk_size=num_tokens, chunk_overlap=token_overlap)
-
-    return(splitter.split_text(text))
+    sentences = text.split('. ') # Split text into sentences
+    chunks = []
+    current_chunk = ''
+    current_chunk_token_count = 0
+    
+    # Iterate through each sentence
+    for sentence in sentences:
+        # Split sentence into tokens
+        tokens = sentence.split()
+        
+        # Check if adding the current sentence exceeds tokens_per_chunk
+        if current_chunk_token_count + len(tokens) <= tokens_per_chunk:
+            # Add the sentence to the current chunk
+            if current_chunk:
+                current_chunk += '. ' + sentence
+            else:
+                current_chunk += sentence
+            current_chunk_token_count += len(tokens)
+        else:
+            # Add current chunk to chunks list and start a new chunk
+            chunks.append(current_chunk)
+            current_chunk = sentence
+            current_chunk_token_count = len(tokens)
+    
+    # Add the last chunk
+    if current_chunk:
+        chunks.append(current_chunk)
+    
+    return chunks
 
 # Create the search index
 search_credential = AzureKeyCredential(search_key)
@@ -303,7 +338,7 @@ from azure.storage.filedatalake import (
     FileSystemClient
 )
 from azure.identity import ClientSecretCredential  
-import PyPDF2  
+import pypdf 
 from io import BytesIO
 import base64
 import time
@@ -346,7 +381,7 @@ for path in paths:
     pdf_file = file_client.download_file()
     stream = BytesIO()
     pdf_file.readinto(stream)
-    pdf_reader = PyPDF2.PdfReader(stream)
+    pdf_reader = pypdf.PdfReader(stream)
     filename = path.name.split('/')[-1]
     document_id = filename.replace('.pdf','')
 
