@@ -1,7 +1,7 @@
 azure-identity==1.14.0
 Flask==2.3.2
 openai==1.6.1
-semantic-kernel==0.4.5.dev0
+semantic-kernel==0.9.4b1
 azure-search-documents==11.4.0b6
 azure-storage-blob==12.17.0
 python-dotenv==1.0.0
