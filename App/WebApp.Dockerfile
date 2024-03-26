@@ -1,5 +1,4 @@
-# FROM node:20-alpine AS frontend 
-FROM mcr.microsoft.com/cbl-mariner/base/nodejs:16 AS frontend
+FROM node:20-alpine AS frontend 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
 WORKDIR /home/node/app 
@@ -11,8 +10,7 @@ COPY --chown=node:node ./frontend/ ./frontend
 WORKDIR /home/node/app/frontend
 RUN npm run build
   
-# FROM python:3.11-alpine 
-FROM mcr.microsoft.com/cbl-mariner/base/python:3
+FROM python:3.11-alpine 
 RUN apk add --no-cache --virtual .build-deps \  
     build-base \  
     libffi-dev \  
