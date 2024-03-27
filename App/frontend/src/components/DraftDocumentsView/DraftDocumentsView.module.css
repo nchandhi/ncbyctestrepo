@@ -5,6 +5,7 @@
   max-height: 90vh;
   overflow-y: scroll;
   box-sizing: border-box;
+  
 }
 
 .draftDocumentHeader {
@@ -16,6 +17,7 @@
   padding: 3rem;
   padding-top: 2rem;
   border-top: 2px solid #D2D0CE;
+  background-color:#FAF9F8;
 }
 
 .draftDocumentTitle{

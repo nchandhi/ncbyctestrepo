@@ -11,6 +11,7 @@ export const ArticleView = () => {
   const appState = useContext(AppStateContext);
   const favoritedCitations = appState?.state.favoritedCitations || [];
   const [articlesCitations, setArticlesCitations] = useState<Citation[]>([]);
+  
 
   useEffect(() => {
     const filteredArticlesCitations = favoritedCitations.filter(citation => citation.type && citation.type.includes('Articles'));

@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Stack, Text } from "@fluentui/react";
 import { AppStateContext } from "../../../state/AppProvider";
-import { News24Regular } from "@fluentui/react-icons";
 import { Card } from "@fluentui/react-components";
-import { Dismiss24Regular } from "@fluentui/react-icons";
+import { Dismiss24Regular, DeleteRegular } from "@fluentui/react-icons";
 import { Citation } from "../../../api/models";
 import { Button } from "@fluentui/react-components";
 import styles from "./ArticleView.css";
@@ -83,7 +82,7 @@ export const GrantView = () => {
                     </Text>
                     {/* "X" button to remove the citation */}
                     <Button
-                      icon={<Dismiss24Regular />}
+                      icon={<DeleteRegular />}
                       onClick={() => handleToggleFavorite(citation)}
                       style={{
                         border: "none",

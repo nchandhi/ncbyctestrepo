@@ -1,7 +1,6 @@
 # Build your own AI Assitant Solution Accelerator
 
-MENU: [**USER STORY**](#user-story) \| [**ONE-CLICK DEPLOY**](#one-click-deploy)  \| [**SUPPORTING DOCUMENTS**](#supporting-documents) \|
-[**CUSTOMER TRUTH**](#customer-truth)
+MENU: [**USER STORY**](#user-story) \| [**ONE-CLICK DEPLOY**](#one-click-deploy) 
 
 <h2><img src="Deployment/images/readMe/userStory.png" width="64">
 <br/>
@@ -61,34 +60,26 @@ For additional training and support, please see:
 ### **How to install/deploy**
 
 1. Please check the link [Azure Products by Region](
-https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/?products=all) and choose a region where Azure AI Search, Semantic Ranker, Azure Open AI service, and Azure AI Studio are available. 
+https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/?products=all&regions=all) and choose a region where Azure AI Search, Semantic Ranker, Azure OpenAI Service, and Azure AI Studio are available. 
 
 2. Click the following deployment button to create the required resources for this accelerator in your Azure Subscription.
 
    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnchandhi%2Fncbyctestrepo%2Fmain%2FDeployment%2Fbicep%2Fmain.json)
 
-2. You will need to select an Azure Subscription, create/select a Resource group, Region and a unique Solution Prefix.
+3. You will need to select an Azure Subscription, create/select a Resource group, Region and a unique Solution Prefix.
 
    ![image](/Deployment/images/readMe/armDeployment.png)
 
-3. When Deployment is complete, follow steps in [AI Studio Deployment guide](./Deployment/AIStudioDeployment.md) to set up the grant draft proposal endpoint.
+4. When Deployment is complete, follow steps in [AI Studio Deployment guide](./Deployment/AIStudioDeployment.md) to set up the grant draft proposal endpoint.
 
-4. When AI Studio deployment is complete, launch the application by navigating to your Azure resource group, choosing the app service resource, and clicking on the default domain. You should bookmark this URL to have quick access to your deployed application.
+5. When AI Studio deployment is complete, launch the application by navigating to your Azure resource group, choosing the app service resource, and clicking on the default domain. You should bookmark this URL to have quick access to your deployed application.
 
 The next steps are optional for additional learning. Not required to deploy the solution and run the Grant Writer Assistant.
 
-5. Optional - Follow steps in [Fabric Deployment guide](./Deployment/FabricDeployment.md) to set up the data processing pipelines in Fabric.
+6. Optional - Follow steps in [Fabric Deployment guide](./Deployment/FabricDeployment.md) to set up the data processing pipelines in Fabric.
 
-6. Optional - Follow steps in [Promptflow Evaluation guide](./Deployment/PromptFlowEvaluation.md) to set up the evaluation flows.
+7. Optional - Follow steps in [Promptflow Evaluation guide](./Deployment/PromptFlowEvaluation.md) to set up the evaluation flows.
 
-
-<br/>
-<br>
-<h2><img src="Deployment/images/readMe/customerTruth.png" width="64">
-</br>
-Customer truth
-</h2>
-Customer stories coming soon.
 
 <br/>
 <br/>

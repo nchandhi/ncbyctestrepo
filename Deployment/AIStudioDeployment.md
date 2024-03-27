@@ -2,16 +2,16 @@
 Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow and Deploy as endpoint. Clone or download this repository before you start following the steps below.
 
 ## Step 1: Create AI Studio Project
-1. Launch the AI Studio [AI Studio](https://ai.azure.com/) and select Build from the top menu
+1. Launch the AI Studio [AI Studio](https://ai.azure.com/) and select Build from the top menu.
 
     ![Home](/Deployment/images/aiStudio/Home.png)
 
 
-2. Click on `New AI Project`
+2. Click on `New AI Project`.
 
    ![New AI Project](/Deployment/images/aiStudio/NewProject.png)
 
-3. Enter a Project Name and click on `Create a New Resource`
+3. Enter a Project Name and click on `Create a New Resource`.
     ![Getting Started](/Deployment/images/aiStudio/GettingStarted.png)
 
 4. Enter a new AI Hub Resource Name. And then select Azure Subscription, Resource Group, Location from drop-down menus. You should choose the same resource group you created from ARM deployment in previous step. 
@@ -25,7 +25,7 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
 
 6. Select Azure AI Search resource from drop-down menu.
 
-7. Click on `Next` button
+7. Click on `Next` button.
 
 8. Review the details and click on `Create an AI Project` button.
 
@@ -37,7 +37,7 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
 
 ## Step 2: Import Prompt Flow and Deploy
 
-1. Click on `PromptFlow` button from left menu under `Tools`
+1. Click on `PromptFlow` button from left menu under `Tools`.
 
     ![Prompt Flow](/Deployment/images/aiStudio/PromptFlow.png)
 
@@ -45,7 +45,7 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
     
     ![Upload](/Deployment/images/aiStudio/UploadFromLocal.png)
 
-3. Click on `Zip File` radio button. Then click on `Browse` to select the file `DraftFlow.zip` from the cloned/downloaded GitHub repository folder. The file will be located at `<Your Download Folder Path>/Deployment/scripts/ai_hub_scripts/flows/`
+3. Click on `Zip File` radio button. Then click on `Browse` to select the file `DraftFlow.zip` from the cloned/downloaded GitHub repository folder. The file will be located at `<Your Download Folder Path>/Deployment/scripts/ai_hub_scripts/flows/`.
 
     ![Select Local File](/Deployment/images/aiStudio/SelectLocalFile.png)
 
@@ -70,10 +70,10 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
    ![Deployments Page](/Deployment/images/aiStudio/BlankDeploymentsPage.png)
 
 
-8. Click on the deployed endpoint with name `draftsinference-1`
+8. Click on the deployed endpoint with name `draftsinference-1`.
    ![Drafts Endpoint](/Deployment/images/aiStudio/DraftsEndpoint.png)
 
-9. Click on `Consume` from the top menu. Copy below details to use later in step 3.7 
+9. Click on `Consume` from the top menu. Copy below details to use later in step 3.6.
 - Deployment
 - REST endpoint
 - Primary key
@@ -82,7 +82,7 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
 
 
 ## Step 3: Update the deployment keys in Azure App Service configuration
-1. Launch the Azure Portal [Azure Portal](https://portal.azure.com/)
+1. Launch the Azure Portal [Azure Portal](https://portal.azure.com/).
 2. Enter `Resource Groups` in the top search bar.
 
     ![Search Resource Groups](/Deployment/images/aiStudio/AzurePortalResourceGroups.png)
@@ -91,11 +91,11 @@ Please follow the steps below to set up the AI Studio Hub, Project, PromptFlow a
 
 4. Locate the App Service in the Resource Group and click on it.
 
-5. Click on `Environment Variables` from left menu under `Settings`
+5. Click on `Environment Variables` from left menu under `Settings`.
 
     ![Application Environment Variables](/Deployment/images/aiStudio/AppEnvironmentVariables.png)
 
-6. Modify the below variables with values collected in step 2.8 above
+6. Modify the below variables with values collected in step 2.9 above.
 - AI_STUDIO_DRAFT_FLOW_ENDPOINT
 - AI_STUDIO_DRAFT_FLOW_API_KEY
 - AI_STUDIO_DRAFT_FLOW_DEPLOYMENT_NAME

@@ -54,6 +54,11 @@ const Chat = ({ chatType }: Props) => {
   const [errorMsg, setErrorMsg] = useState<ErrorMessage | null>()
   const [showAuthMessage, setShowAuthMessage] = useState<boolean>(false)
 
+  useEffect(() => {
+    // close citations panel when switching sidebar selections
+    setIsCitationPanelOpen(false)
+  }, [appStateContext?.state.sidebarSelection])
+
   const errorDialogContentProps = {
     type: DialogType.close,
     title: errorMsg?.title,
@@ -479,6 +484,10 @@ const Chat = ({ chatType }: Props) => {
                                   type: appStateContext?.state.sidebarSelection?.toString() ?? '',
                                 }
                                 handleToggleFavorite([newCitation])
+
+                                if (!appStateContext?.state.isSidebarExpanded) {
+                                  appStateContext?.dispatch({ type: 'TOGGLE_SIDEBAR' });
+                                }
                               }
                             }}
                             styles={{

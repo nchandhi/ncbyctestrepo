@@ -439,7 +439,7 @@ def run_async(func):
     return loop.run_until_complete(func)
 
 @app.route("/draft_document/generate_section", methods=["POST"])
-async def draft_document_generate():
+def draft_document_generate():
     request_body = request.json
     topic = request_body["grantTopic"]
     section = request_body["sectionTitle"]
