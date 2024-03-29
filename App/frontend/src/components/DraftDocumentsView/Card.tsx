@@ -199,7 +199,8 @@ export const Card = (props: CardProps) => {
             style={{
               width: '50%',
               flexDirection: 'column',
-              gap: '1rem'
+              gap: '1rem',
+              backgroundColor: '#EDEBE9'
             }}
           >
             <div
@@ -218,7 +219,7 @@ export const Card = (props: CardProps) => {
             </div>
 
           <Textarea
-              style={{ marginBottom: '1rem', backgroundColor: '#EDEBE9' }}
+              style={{ marginBottom: '1rem'}}
               className={styles.regenerateCardTextarea}
               size="large"
               value={appStateContext?.state.documentSections?.[index]?.metaPrompt ?? ''}

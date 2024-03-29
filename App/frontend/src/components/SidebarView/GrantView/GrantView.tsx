@@ -87,7 +87,6 @@ export const GrantView = () => {
                       style={{
                         border: "none",
                         position: "absolute",
-                        top: "-5px",
                         right: "-10px",
                         padding: "2px",
                         backgroundColor: "#f4f4f4",
