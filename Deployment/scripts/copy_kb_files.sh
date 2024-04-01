@@ -20,9 +20,9 @@ zipUrl3=${baseUrl}"Deployment/data/demodata3.zip"
 
 
 # Download the zip file
-curl --output "$zipFileName" "$zipUrl1"
-curl --output "$zipFileName1" "$zipUrl2"
-curl --output "$zipFileName1" "$zipUrl3"
+curl --output "$zipFileName1" "$zipUrl1"
+curl --output "$zipFileName2" "$zipUrl2"
+curl --output "$zipFileName3" "$zipUrl3"
 
 # Extract the zip file
 unzip /mnt/azscripts/azscriptinput/"$zipFileName1" -d /mnt/azscripts/azscriptinput/"$extractedFolder1"
