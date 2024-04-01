@@ -10,7 +10,7 @@ directory2 = 'demodata2/completed_grants'
 directory3 = 'demodata3/completed_grants' 
 csv_file_name = '/metadata/completed_grants.csv'
 
-num_pages = 10
+num_pages = 1
 
 from azure.keyvault.secrets import SecretClient  
 from azure.identity import DefaultAzureCredential  

@@ -9,7 +9,7 @@ file_system_client_name = "data"
 directory = 'demodata/nih_grants' 
 csv_file_name = '/metadata/nih_grants.csv'
 
-num_pages = 10
+num_pages = 1
 
 
 from azure.keyvault.secrets import SecretClient  

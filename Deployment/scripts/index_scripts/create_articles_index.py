@@ -7,7 +7,7 @@ drafts_index_name = 'draftsindex'
 file_system_client_name = "data"
 directory = 'demodata/pubmed_articles' 
 csv_file_name = '/metadata/pubmed_articles.csv'
-num_pages = 10
+num_pages = 1
 
 from azure.keyvault.secrets import SecretClient  
 from azure.identity import DefaultAzureCredential  
