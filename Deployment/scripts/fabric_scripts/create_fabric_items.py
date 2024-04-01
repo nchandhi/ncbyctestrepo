@@ -6,8 +6,12 @@ import pandas as pd
 
 # credential = DefaultAzureCredential()
 
-# cred = credential.get_token('https://api.fabric.microsoft.com/.default')
-# token = cred.token
+from azure.identity import AzureCliCredential
+
+credential = AzureCliCredential()
+
+cred = credential.get_token('https://api.fabric.microsoft.com/.default')
+token = cred.token
 
 key_vault_name = 'kv_to-be-replaced'
 workspaceId = "workspaceId_to-be-replaced"
@@ -30,7 +34,7 @@ notebook_names =['create_articles_index','create_grants_index','create_drafts_in
 
 for notebook_name in notebook_names:
 
-    with open(notebook_name +'.ipynb', 'r') as f:
+    with open('notebooks/'+ notebook_name +'.ipynb', 'r') as f:
         notebook_json = json.load(f)
 
     notebook_json['metadata']['trident']['lakehouse']['default_lakehouse'] = lakehouse_res.json()['id']
@@ -54,4 +58,4 @@ for notebook_name in notebook_names:
         }
     }
     fabric_response = requests.post(fabric_items_url, headers=fabric_headers, json=notebook_data)
-    #print(fabric_response.json())
+    #print(fabric_response.json())    
