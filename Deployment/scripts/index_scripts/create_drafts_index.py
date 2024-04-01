@@ -351,9 +351,9 @@ service_client = DataLakeServiceClient(account_url, credential=account_key,api_v
 
 file_system_client = service_client.get_file_system_client(file_system_client_name)  
 directory_name = directory + '/pdfs'
-paths = file_system_client.get_paths(path=directory_name)
-paths = paths + file_system_client.get_paths(path=directory2 + '/pdfs')
-paths = paths + file_system_client.get_paths(path=directory3 + '/pdfs')
+paths = list(file_system_client.get_paths(path=directory_name))
+paths = paths + list(file_system_client.get_paths(path=directory2 + '/pdfs'))
+paths = paths + list(file_system_client.get_paths(path=directory3 + '/pdfs'))
 
 # Azure Cognitive Search Vector Index
 search_credential = AzureKeyCredential(search_key)
