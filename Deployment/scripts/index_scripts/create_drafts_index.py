@@ -1,5 +1,4 @@
 #Get Azure Key Vault Client
-
 key_vault_name = 'kv_to-be-replaced'
 
 #hardcoded values
@@ -10,7 +9,7 @@ directory2 = 'demodata2/completed_grants'
 directory3 = 'demodata3/completed_grants' 
 csv_file_name = '/metadata/completed_grants.csv'
 
-num_pages = 1
+num_pages = 10
 
 from azure.keyvault.secrets import SecretClient  
 from azure.identity import DefaultAzureCredential  

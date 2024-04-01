@@ -1,4 +1,4 @@
-#### Legal Notice: This program is intended for use by Microsoft employees only and is strictly for internal purposes. Any unauthorized distribution, sharing, or use of this program outside of Microsoft is strictly prohibited.
+>Legal Notice: This program is intended for use by Microsoft employees only and is strictly for internal purposes. Any unauthorized distribution, sharing, or use of this program outside of Microsoft is strictly prohibited.
 
 # Build your own AI Assistant Solution Accelerator
 
@@ -66,7 +66,9 @@ https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-regi
 
 2. Click the following deployment button to create the required resources for this accelerator in your Azure Subscription.
 
-   [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnchandhi%2Fncbyctestrepo%2Fmain%2FDeployment%2Fbicep%2Fmain.json)
+   [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FBuild-your-own-AI-Assistant-Solution-Accelerator%2Fmain%2FDeployment%2Fbicep%2Fmain.json)
+
+   <!-- [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnchandhi%2Fncbyctestrepo%2Fmain%2FDeployment%2Fbicep%2Fmain.json) -->
 
 3. You will need to select an Azure Subscription, create/select a Resource group, Region, and a unique Solution Prefix.
 
@@ -81,6 +83,8 @@ The next steps are optional for additional learning. Not required to deploy the 
 6. Optional - Follow steps in [Fabric Deployment guide](./Deployment/FabricDeployment.md) to set up the data processing pipelines in Fabric.
 
 7. Optional - Follow steps in [Promptflow Evaluation guide](./Deployment/PromptFlowEvaluation.md) to set up the evaluation flows.
+
+8. Optional - Follow steps in [Promptflow Safety Evaluation guide](./Deployment/PromptFlowSafetyEvaluation.md) to set up the safety evaluation flows.
 
 
 <br/>
